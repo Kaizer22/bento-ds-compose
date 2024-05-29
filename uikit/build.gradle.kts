@@ -1,10 +1,11 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    `maven-publish`
 }
 
 android {
-    namespace = "com.desh2403.uikit"
+    namespace = "com.desh2403.bento_ds_compose.uikit"
     compileSdk = 34
 
     defaultConfig {
@@ -34,6 +35,24 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+    }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+}
+publishing {
+    publications {
+        create<MavenPublication>("bento-ds-compose") {
+            groupId = "com.desh2403"
+            artifactId = "bento_ds_compose"
+            version = "0.0.1-test2"
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
     }
 }
 
