@@ -6,6 +6,8 @@ import androidx.compose.ui.unit.dp
 
 data class BentoDSDimensions(
     val x0 : Dp = 0.dp,
+    val x0_25: Dp = 1.dp,
+    val x0_5: Dp = 2.dp,
     val x1 : Dp = 4.dp,
     val x2 : Dp = 8.dp,
     val x3 : Dp = 12.dp,
