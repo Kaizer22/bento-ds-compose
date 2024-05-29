@@ -6,7 +6,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
-import com.desh2403.bento_ds_compose.R
+import com.desh2403.uikit.R
 
 private val LexendFontFamily = FontFamily(
     Font(R.font.lexend_thin, FontWeight.W100),

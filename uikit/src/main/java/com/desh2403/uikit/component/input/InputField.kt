@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
-import com.desh2403.bento_ds_compose.R
+import com.desh2403.uikit.R
 import com.desh2403.uikit.component.FSpace
 import com.desh2403.uikit.component.HSpace
 import com.desh2403.uikit.component.VSpace

@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.desh2403.bento_ds_compose.R
+import com.desh2403.uikit.R
 import com.desh2403.uikit.component.button.BentoDSButton
 import com.desh2403.uikit.component.button.BentoDSIconButton
 import com.desh2403.uikit.component.button.ButtonSize
