@@ -18,7 +18,7 @@ tasks.withType<JavaCompile> {
 }
 
 group = "com.desh2403"
-version = "0.0.1"
+version = "0.0.1-test"
 publishing {
     publications {
         create<MavenPublication>("bento-ds-compose") {
