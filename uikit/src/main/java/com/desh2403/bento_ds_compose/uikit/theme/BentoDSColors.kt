@@ -79,6 +79,114 @@ val negative_70 = Color(0xFF8D000C)
 val negative_80 = Color(0xFF620008)
 val negative_90 = Color(0xFF320004)
 
+val red_1= Color(0xFFFFF2F4)
+val red_5= Color(0xFFFFD8E0)
+val red_10= Color(0xFFFFBDCB)
+val red_20= Color(0xFFFF859E)
+val red_30= Color(0xFFFC5275)
+val red_40= Color(0xFFEA2A51)
+val red_50= Color(0xFFD20E36)
+val red_60= Color(0xFFB50025)
+val red_70= Color(0xFF90001D)
+val red_80= Color(0xFF640014)
+val red_90= Color(0xFF32000A)
+
+val orange_1= Color(0xFFFFF6F2)
+val orange_5= Color(0xFFFFE5D7)
+val orange_10= Color(0xFFFFD4BC)
+val orange_20= Color(0xFFFFAD84)
+val orange_30= Color(0xFFFB8951)
+val orange_40= Color(0xFFE96929)
+val orange_50= Color(0xFFD24E0D)
+val orange_60= Color(0xFFB43C00)
+val orange_70= Color(0xFF8F3000)
+val orange_80= Color(0xFF632100)
+val orange_90= Color(0xFF321100)
+
+val yellow_1= Color(0xFFFFFCF2)
+val yellow_5= Color(0xFFFFF8D3)
+val yellow_10= Color(0xFFFFF4B2)
+val yellow_20= Color(0xFFFFE573)
+val yellow_30= Color(0xFFFFD439)
+val yellow_40= Color(0xFFFFC208)
+val yellow_50= Color(0xFFE4AC00)
+val yellow_60= Color(0xFFC39200)
+val yellow_70= Color(0xFF9A7400)
+val yellow_80= Color(0xFF6B5000)
+val yellow_90= Color(0xFF362900)
+
+val green_1= Color(0xFF)
+val green_5= Color(0xFF)
+val green_10= Color(0xFF)
+val green_20= Color(0xFF)
+val green_30= Color(0xFF)
+val green_40= Color(0xFF)
+val green_50= Color(0xFF)
+val green_60= Color(0xFF)
+val green_70= Color(0xFF)
+val green_80= Color(0xFF)
+val green_90= Color(0xFF)
+
+val jade_1= Color(0xFF)
+val jade_5= Color(0xFF)
+val jade_10= Color(0xFF)
+val jade_20= Color(0xFF)
+val jade_30= Color(0xFF)
+val jade_40= Color(0xFF)
+val jade_50= Color(0xFF)
+val jade_60= Color(0xFF)
+val jade_70= Color(0xFF)
+val jade_80= Color(0xFF)
+val jade_90= Color(0xFF)
+
+val blue_1= Color(0xFF)
+val blue_5= Color(0xFF)
+val blue_10= Color(0xFF)
+val blue_20= Color(0xFF)
+val blue_30= Color(0xFF)
+val blue_40= Color(0xFF)
+val blue_50= Color(0xFF)
+val blue_60= Color(0xFF)
+val blue_70= Color(0xFF)
+val blue_80= Color(0xFF)
+val blue_90= Color(0xFF)
+
+val indigo_1= Color(0xFF)
+val indigo_5= Color(0xFF)
+val indigo_10= Color(0xFF)
+val indigo_20= Color(0xFF)
+val indigo_30= Color(0xFF)
+val indigo_40= Color(0xFF)
+val indigo_50= Color(0xFF)
+val indigo_60= Color(0xFF)
+val indigo_70= Color(0xFF)
+val indigo_80= Color(0xFF)
+val indigo_90= Color(0xFF)
+
+val violet_1= Color(0xFF)
+val violet_5= Color(0xFF)
+val violet_10= Color(0xFF)
+val violet_20= Color(0xFF)
+val violet_30= Color(0xFF)
+val violet_40= Color(0xFF)
+val violet_50= Color(0xFF)
+val violet_60= Color(0xFF)
+val violet_70= Color(0xFF)
+val violet_80= Color(0xFF)
+val violet_90= Color(0xFF)
+
+val pink_1= Color(0xFF)
+val pink_5= Color(0xFF)
+val pink_10= Color(0xFF)
+val pink_20= Color(0xFF)
+val pink_30= Color(0xFF)
+val pink_40= Color(0xFF)
+val pink_50= Color(0xFF)
+val pink_60= Color(0xFF)
+val pink_70= Color(0xFF)
+val pink_80= Color(0xFF)
+val pink_90= Color(0xFF)
+
 val transparent = Color.Transparent
 val white = Color.White
 val black = Color.Black
@@ -236,6 +344,32 @@ data class BentoDSColors(
     val outlinePositive: Color = positive_50,
     val outlineWarning: Color = warning_40,
     val outlineNegative: Color = negative_30,
+    // endregion
+
+    // region Data Visualization
+    val softIndigo: Color = indigo_10,
+    val brightIndigo: Color = indigo_30,
+    val softViolet: Color = violet_10,
+    val brightViolet: Color = violet_30,
+    val softPink: Color = pink_10,
+    val brightPink: Color = pink_30,
+    val softRed: Color = red_10,
+    val brightRed: Color = red_30,
+    val softOrange: Color = orange_10,
+    val brightOrange: Color = orange_30,
+    val softYellow: Color = yellow_10,
+    val brightYellow: Color = yellow_30,
+    val softGreen: Color = green_10,
+    val brightGreen: Color = green_30,
+    val softJade: Color = jade_10,
+    val brightJade: Color = jade_30,
+    val softBlue: Color = blue_10,
+    val brightBlue: Color = blue_30,
+    val softGrey: Color = neutral_10,
+    val brightGrey: Color = neutral_30,
+
+
+
     // endregion
 )
 

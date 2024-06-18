@@ -6,6 +6,7 @@ import androidx.compose.ui.unit.dp
 
 data class BentoDSShapes(
     val bannerShape: RoundedCornerShape = RoundedCornerShape(16.dp),
+    val toastShape: RoundedCornerShape = RoundedCornerShape(16.dp),
     val buttonShape: RoundedCornerShape = RoundedCornerShape(16.dp),
     val cardShape: RoundedCornerShape = RoundedCornerShape(24.dp),
     val bottomSheetModalShape: RoundedCornerShape = RoundedCornerShape(
