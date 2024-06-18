@@ -48,7 +48,7 @@ publishing {
         create<MavenPublication>("bento-ds-compose") {
             groupId = "com.desh2403"
             artifactId = "bento_ds_compose"
-            version = "0.0.1-test2"
+            version = "0.0.1-test3"
             afterEvaluate {
                 from(components["release"])
             }
