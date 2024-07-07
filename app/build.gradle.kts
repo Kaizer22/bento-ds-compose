@@ -28,6 +28,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
     }
 
     buildTypes {
@@ -46,6 +49,17 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.11"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -60,12 +74,8 @@ dependencies {
 
     // Features
 //    implementation(project(":bento-ds-playground"))
-//    implementation(project(":task-list"))
-//    implementation(project(":advanced-alarm"))
-//    implementation(project(":video-collage"))
 
     // UI
-
     implementation(libs.compose.ui.ui)
     implementation(libs.compose.ui.ui.graphics)
     implementation(libs.compose.ui.ui.tooling.preview)
@@ -78,10 +88,6 @@ dependencies {
     debugImplementation(libs.compose.ui.ui.tooling)
     debugImplementation(libs.compose.ui.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
-
-    // Data
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
 
     // Kotlin
     implementation(libs.core.ktx)

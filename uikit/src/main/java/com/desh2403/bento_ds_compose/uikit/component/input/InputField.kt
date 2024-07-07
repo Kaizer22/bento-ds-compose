@@ -17,23 +17,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.launch
 import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.FSpace
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.component.VSpace
-import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
-import com.desh2403.bento_ds_compose.uikit.component.button.ButtonIconSize
-import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 enum class InputFieldType {
@@ -48,7 +42,7 @@ enum class InputFieldState {
     READ_ONLY, READ_ONLY_ERROR,
 }
 
-private val ERROR_STATES = arrayOf(
+internal val ERROR_STATES = arrayOf(
     InputFieldState.ENABLED_ERROR,
     InputFieldState.READ_ONLY_ERROR
 )
@@ -142,45 +136,11 @@ fun BentoDSInputField(
                 ),
                 decorationBox = { innerTextField ->
                     Column {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            label?.let {
-                                Text(
-                                    text = label,
-                                    style = BentoDSTheme.typography.labelSmall,
-                                    color = BentoDSTheme.colors.textSecondary,
-                                )
-                            }
-                            if (showInfoButton) {
-                                //val infoTooltipState = rememberTooltipState()
-                                val scope = rememberCoroutineScope()
-                                FSpace()
-                                //TooltipBox(
-                                //tooltip = { Text(text = infoMessage.orEmpty()) },
-                                //state = infoTooltipState,
-                                //positionProvider = TooltipDefaults
-                                //.rememberPlainTooltipPositionProvider(),
-                                //) {
-                                BentoDSIconButton(
-                                    iconRes = R.drawable.ic_field_tip,
-                                    size = ButtonIconSize.M,
-                                    isNeedPadding = false,
-                                    iconTint = inputPalette.infoIconTint,
-                                    buttonType = ButtonType.PRIMARY_TRANSPARENT,
-                                    // TODO
-                                    onClick = {
-                                        scope.launch {
-                                            //infoTooltipState.show()
-                                        }
-                                    },
-                                )
-                                //}
-                            }
-                            if (label != null || showInfoButton) {
-                                VSpace(h = BentoDSTheme.dimensions.x1)
-                            }
-                        }
+                        InputHeader(
+                            label = label,
+                            showInfoButton = showInfoButton,
+                            infoIconTint = inputPalette.infoIconTint,
+                        )
                         VSpace(h = BentoDSTheme.dimensions.x1)
                         Box(
                             modifier = Modifier
@@ -251,29 +211,11 @@ fun BentoDSInputField(
                             }
 
                         }
-                        if (isError || assistiveText != null) {
-                            VSpace(h = BentoDSTheme.dimensions.x1)
-                            Row {
-                                HSpace(w = BentoDSTheme.dimensions.x4)
-                                if (isError) {
-                                    Icon(
-                                        modifier = Modifier.size(
-                                            BentoDSTheme.dimensions.x4
-                                        ),
-                                        tint = inputPalette.errorIconTint,
-                                        painter = painterResource(id = R.drawable.ic_negative_solid),
-                                        contentDescription = null,
-                                    )
-                                    HSpace(w = BentoDSTheme.dimensions.x1)
-                                }
-                                Text(
-                                    text = assistiveText.orEmpty(),
-                                    style = BentoDSTheme.typography.bodySmall,
-                                    color = if (isError) BentoDSTheme.colors.textNegative
-                                    else BentoDSTheme.colors.textSecondary
-                                )
-                            }
-                        }
+                        InputAssistiveText(
+                            assistiveText = assistiveText,
+                            errorIconTint = inputPalette.errorIconTint,
+                            isError = isError,
+                        )
                     }
                 }
             )
