@@ -40,7 +40,7 @@ fun BentoDSBanner(
     onCloseClick: () -> Unit,
 ) {
     val leftIcon = bannerIcon ?: when (bannerType) {
-        BentoDSBannerType.INFORMATIVE -> R.drawable.ic_informative_solid
+        BentoDSBannerType.INFORMATIVE -> R.drawable.ic_info_solid
         BentoDSBannerType.POSITIVE -> R.drawable.ic_positive_solid
         BentoDSBannerType.WARNING -> R.drawable.ic_warning_solid
         BentoDSBannerType.NEGATIVE -> R.drawable.ic_negative_solid

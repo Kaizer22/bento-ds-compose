@@ -42,7 +42,7 @@ fun InputHeader(
             //.rememberPlainTooltipPositionProvider(),
             //) {
             BentoDSIconButton(
-                iconRes = R.drawable.ic_field_tip,
+                iconRes = R.drawable.ic_question_circle,
                 size = ButtonIconSize.M,
                 isNeedPadding = false,
                 iconTint = infoIconTint,
