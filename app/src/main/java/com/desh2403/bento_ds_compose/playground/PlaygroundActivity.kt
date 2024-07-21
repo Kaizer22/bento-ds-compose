@@ -13,6 +13,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSButton
+import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.component.input.BentoDSSwitch
 import com.desh2403.bento_ds_compose.uikit.component.loading.AreaLoader
 import com.desh2403.bento_ds_compose.uikit.component.loading.InlineLoader
@@ -40,6 +42,18 @@ class PlaygroundActivity : ComponentActivity() {
                             BentoDSSwitch(checked = c) {
                                 c = it
                             }
+                            BentoDSButton(
+                                text = "Test",
+                                buttonType = ButtonType.SECONDARY_TRANSPARENT,
+                                leadingIcon = com.desh2403.bento_ds_compose.uikit.R.drawable.ic_chevron_down,
+                                onClick = {},
+                            )
+                            BentoDSButton(
+                                text = "Test",
+                                buttonType = ButtonType.SECONDARY_OUTLINED,
+                                leadingIcon = com.desh2403.bento_ds_compose.uikit.R.drawable.ic_chevron_down,
+                                onClick = {},
+                            )
                         }
                     }
                 }

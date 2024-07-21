@@ -280,7 +280,7 @@ data class BentoDSColors(
     val scSolidFocusFg: Color = neutral_90,
 
     val scTransparentEnabledBg: Color = transparent,
-    val scTransparentEnabledFg: Color = neutral_80,
+    val scTransparentEnabledFg: Color,// neutral_80 / neutral_5,
 
     val scTransparentHoverBg: Color = neutral_20.copy(alpha = 0.4f),
     val scTransparentHoverFg: Color = black,
@@ -288,7 +288,7 @@ data class BentoDSColors(
     val scTransparentFocusBg: Color = neutral_20.copy(alpha = 0.4f),
     val scTransparentFocusFg: Color = black,
 
-    val scOutlineEnabled: Color = neutral_80,
+    val scOutlineEnabled: Color, // neutral_80 / neutral_5,
     val scOutlineHover: Color = black,
     val scOutlineFocus: Color = black,
     // endregion
@@ -385,6 +385,9 @@ fun paLightColors() = BentoDSColors(
     textPrimary = neutral_90,
     textSecondary = neutral_50,
 
+    scTransparentEnabledFg = neutral_80,
+    scOutlineEnabled = neutral_80,
+
     linkEnabled = bento_violet_40,
     linkHover = bento_violet_60,
     linkFocus = bento_violet_60,
@@ -402,6 +405,9 @@ fun paDarkColors() = BentoDSColors(
 
     textPrimary = neutral_1,
     textSecondary = neutral_30,
+
+    scTransparentEnabledFg = neutral_5,
+    scOutlineEnabled = neutral_5,
 
     linkEnabled = bento_violet_10,
     linkHover = bento_violet_5,
