@@ -45,7 +45,7 @@ Components:
 ### Loading
 - [x] Area Loader
 - [x] Inline Loader
-- [ ] Preogress Bar
+- [ ] Progress Bar
 ### Modal
 - [ ] Modal (IN PROGRESS)
 - [ ] Toast (IN PROGRESS)
