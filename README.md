@@ -32,9 +32,9 @@ Components:
 - [ ] Dropdown Selector (IN PROGRESS)
 - [ ] File uploader (IN PROGRESS)
 - [x] Text Input
-- [ ] Text Area
-- [ ] Password
-- [ ] Number, Number Decimal
+- [ ] Text Area (IN PROGRESS)
+- [ ] Password (IN PROGRESS)
+- [ ] Number, Number Decimal (IN PROGRESS)
 - [ ] Time
 - [ ] Date
 - [ ] Single/Multi Selection
