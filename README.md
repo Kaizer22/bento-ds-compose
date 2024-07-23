@@ -60,5 +60,6 @@ Components:
  - [ ] Shapes (IN PROGRESS)
  - [x] Typography
  - [x] Default Icons
+ - [ ] Phosphor Icons (IN PROGRESS)
 ### Utils
 - [x] Spacers (VSpace, HSpace, FSpace)
