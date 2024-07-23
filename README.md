@@ -41,7 +41,7 @@ Components:
 - [ ] Radio
 - [ ] Search Bar
 - [x] Switch
-- [ ] 
+- [ ]  
 ### Loading
 - [x] Area Loader
 - [x] Inline Loader
