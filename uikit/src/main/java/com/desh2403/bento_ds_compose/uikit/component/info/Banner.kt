@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.FSpace
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
@@ -37,7 +38,7 @@ fun BentoDSBanner(
     isFillMaxWidth: Boolean = false,
     action: String? = null,
     onActionClick: (() -> Unit)? = null,
-    onCloseClick: () -> Unit,
+    onCloseClick: (() -> Unit)? = null,
 ) {
     val leftIcon = bannerIcon ?: when (bannerType) {
         BentoDSBannerType.INFORMATIVE -> R.drawable.ic_info_solid
@@ -78,7 +79,11 @@ fun BentoDSBanner(
             ),
         horizontalAlignment = Alignment.End,
     ) {
-        Row {
+        Row(
+            verticalAlignment = if (title.isNullOrEmpty() || description.isNullOrBlank())
+                Alignment.CenterVertically
+            else Alignment.Top
+        ) {
             Icon(
                 painter = painterResource(id = leftIcon),
                 tint = iconColor,
@@ -93,7 +98,9 @@ fun BentoDSBanner(
                         style = BentoDSTheme.typography.titleMedium,
                     )
                 }
-                VSpace(h = BentoDSTheme.dimensions.x1)
+                if (!title.isNullOrBlank() && !description.isNullOrBlank()) {
+                    VSpace(h = BentoDSTheme.dimensions.x1)
+                }
                 description?.let {
                     Text(
                         text = description,
@@ -105,16 +112,18 @@ fun BentoDSBanner(
             if (isFillMaxWidth) {
                 FSpace()
             }
-            BentoDSIconButton(
-                size = ButtonIconSize.L,
-                buttonType = ButtonType.SECONDARY_TRANSPARENT,
-                iconRes = R.drawable.ic_x,
-                onClick = onCloseClick,
-                isNeedPadding = false,
-            )
+            onCloseClick?.let {
+                BentoDSIconButton(
+                    size = ButtonIconSize.L,
+                    buttonType = ButtonType.SECONDARY_TRANSPARENT,
+                    iconRes = R.drawable.ic_x,
+                    onClick = onCloseClick,
+                    isNeedPadding = false,
+                )
+            }
         }
-        VSpace(h = BentoDSTheme.dimensions.x2)
         if (action != null && onActionClick != null) {
+            VSpace(h = BentoDSTheme.dimensions.x2)
             BentoDSButton(
                 text = action,
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
@@ -138,6 +147,7 @@ fun BannerPreview() {
                 onActionClick = {},
                 isFillMaxWidth = true
             )
+            VSpace(h = 4.dp)
             BentoDSBanner(
                 title = "Title",
                 description = "Description",
@@ -146,6 +156,7 @@ fun BannerPreview() {
                 onActionClick = {},
                 isFillMaxWidth = true
             )
+            VSpace(h = 4.dp)
             BentoDSBanner(
                 title = "Title",
                 bannerType = BentoDSBannerType.POSITIVE,
@@ -155,6 +166,7 @@ fun BannerPreview() {
                 onActionClick = {},
                 isFillMaxWidth = true
             )
+            VSpace(h = 4.dp)
             BentoDSBanner(
                 title = "Title",
                 bannerType = BentoDSBannerType.WARNING,
@@ -164,6 +176,7 @@ fun BannerPreview() {
                 onActionClick = {},
                 isFillMaxWidth = true
             )
+            VSpace(h = 4.dp)
             BentoDSBanner(
                 title = "Title",
                 bannerType = BentoDSBannerType.NEGATIVE,
@@ -172,6 +185,34 @@ fun BannerPreview() {
                 action = "Action",
                 onActionClick = {},
                 isFillMaxWidth = true
+            )
+            VSpace(h = 4.dp)
+            BentoDSBanner(
+                bannerType = BentoDSBannerType.NEGATIVE,
+                description = "Description",
+                onCloseClick = {},
+                //action = "Action",
+                //onActionClick = {},
+                isFillMaxWidth = true
+            )
+            VSpace(h = 4.dp)
+            BentoDSBanner(
+                bannerType = BentoDSBannerType.NEGATIVE,
+                description = "Description",
+                onCloseClick = {},
+                //action = "Action",
+                //onActionClick = {},
+                isFillMaxWidth = false
+            )
+            VSpace(h = 4.dp)
+            BentoDSBanner(
+                title = "Title",
+                bannerType = BentoDSBannerType.NEGATIVE,
+                //description = "Description",
+                onCloseClick = {},
+                //action = "Action",
+                //onActionClick = {},
+                isFillMaxWidth = false
             )
         }
     }
