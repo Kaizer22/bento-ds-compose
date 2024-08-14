@@ -13,7 +13,7 @@ Components:
 - [x] Icon button  
 
 ### Info
-- [ ] Action
+- [x] Action
 - [ ] Avatar
 - [x] Banner
 - [x] Card
