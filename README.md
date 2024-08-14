@@ -14,7 +14,7 @@ Components:
 
 ### Info
 - [x] Action
-- [ ] Avatar
+- [ ] Avatar (IN PROGRESS)
 - [x] Banner
 - [x] Card
 - [x] Chip
@@ -50,12 +50,12 @@ Components:
 - [ ] Modal (IN PROGRESS)
 - [ ] Toast (IN PROGRESS)
 ### Navigation
-- [ ] Breadcrumb
+- [x] Breadcrumb
 - [ ] Pagination
-- [ ] Stepper
+- [x] Stepper
 - [ ] Tabs
 ### Theme
- - [ ] Color system (IN PROGRESS)
+ - [x] Color system
  - [x] Dimensions
  - [ ] Shapes (IN PROGRESS)
  - [x] Typography
