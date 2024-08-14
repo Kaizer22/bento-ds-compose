@@ -10,10 +10,12 @@ Components:
 - [x] Solid
 - [x] Outline
 - [x] Transparent
-- [x] Icon button  
+- [x] Icon button
+- [x] Link  
 
 ### Info
 - [x] Action
+- [x] Icon
 - [ ] Avatar (IN PROGRESS)
 - [x] Banner
 - [x] Card
