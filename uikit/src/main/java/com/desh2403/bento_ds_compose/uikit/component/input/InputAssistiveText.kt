@@ -37,8 +37,8 @@ fun InputAssistiveText(
             Text(
                 text = assistiveText.orEmpty(),
                 style = BentoDSTheme.typography.bodySmall,
-                color = if (isError) BentoDSTheme.colors.textNegative
-                else BentoDSTheme.colors.textSecondary
+                color = if (isError) BentoDSTheme.colors.text.negative
+                else BentoDSTheme.colors.text.secondary
             )
         }
     }

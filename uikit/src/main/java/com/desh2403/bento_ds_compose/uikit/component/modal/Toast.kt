@@ -14,9 +14,9 @@ import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSButton
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
-import com.desh2403.bento_ds_compose.uikit.component.button.ButtonIconSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.component.info.BentoDSCard
+import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 enum class BentoDSToastType {
@@ -37,18 +37,18 @@ fun Toast(
     onClose: () -> Unit,
 ) {
     val messageColor = when (type) {
-        BentoDSToastType.INFORMATIVE -> BentoDSTheme.colors.textInformative
-        BentoDSToastType.POSITIVE -> BentoDSTheme.colors.textPositive
-        BentoDSToastType.WARNING -> BentoDSTheme.colors.textWarning
-        BentoDSToastType.NEGATIVE -> BentoDSTheme.colors.textNegative
-        BentoDSToastType.SECONDARY -> BentoDSTheme.colors.textSecondary
+        BentoDSToastType.INFORMATIVE -> BentoDSTheme.colors.text.informative
+        BentoDSToastType.POSITIVE -> BentoDSTheme.colors.text.positive
+        BentoDSToastType.WARNING -> BentoDSTheme.colors.text.warning
+        BentoDSToastType.NEGATIVE -> BentoDSTheme.colors.text.negative
+        BentoDSToastType.SECONDARY -> BentoDSTheme.colors.text.secondary
     }
     val backgroundColor = when (type) {
-        BentoDSToastType.INFORMATIVE -> BentoDSTheme.colors.bgInformative
-        BentoDSToastType.POSITIVE -> BentoDSTheme.colors.bgPositive
-        BentoDSToastType.WARNING -> BentoDSTheme.colors.bgWarning
-        BentoDSToastType.NEGATIVE -> BentoDSTheme.colors.bgNegative
-        BentoDSToastType.SECONDARY -> BentoDSTheme.colors.bgSecondary
+        BentoDSToastType.INFORMATIVE -> BentoDSTheme.colors.bg.informative
+        BentoDSToastType.POSITIVE -> BentoDSTheme.colors.bg.positive
+        BentoDSToastType.WARNING -> BentoDSTheme.colors.bg.warning
+        BentoDSToastType.NEGATIVE -> BentoDSTheme.colors.bg.negative
+        BentoDSToastType.SECONDARY -> BentoDSTheme.colors.bg.secondary
     }
     BentoDSCard(
         color = backgroundColor,
@@ -83,7 +83,7 @@ fun Toast(
                     buttonType = ButtonType.SECONDARY_TRANSPARENT,
                     isNeedPadding = false,
                     iconRes = R.drawable.ic_x,
-                    size = ButtonIconSize.L,
+                    size = IconSize.L,
                     onClick = onClose,
                 )
             }

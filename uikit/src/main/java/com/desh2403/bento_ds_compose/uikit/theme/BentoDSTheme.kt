@@ -41,7 +41,7 @@ fun BentoDSTheme(
 }
 
 
-internal val LocalBentoDSColors = staticCompositionLocalOf<BentoDSColors> {
+internal val LocalBentoDSColors = staticCompositionLocalOf<BentoDSPalette> {
     error("CompositionLocal LocalPAColors not present")
 }
 internal val LocalBentoDSButtonColors = staticCompositionLocalOf<BentoDSButtonColors> {
@@ -52,7 +52,7 @@ internal val LocalPAInputFieldStateColors = staticCompositionLocalOf<InputFieldP
 }
 
 object BentoDSTheme {
-    val colors: BentoDSColors
+    val colors: BentoDSPalette
         @Composable
         @ReadOnlyComposable
         get() = LocalBentoDSColors.current

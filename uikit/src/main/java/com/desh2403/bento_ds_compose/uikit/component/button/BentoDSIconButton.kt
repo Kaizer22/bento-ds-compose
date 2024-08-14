@@ -1,13 +1,15 @@
 package com.desh2403.bento_ds_compose.uikit.component.button
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 import com.desh2403.bento_ds_compose.uikit.R
+import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
+import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 @Composable
 fun BentoDSIconButton(
@@ -15,11 +17,21 @@ fun BentoDSIconButton(
     @DrawableRes iconRes: Int,
     onClick: () -> Unit,
     buttonType: ButtonType = ButtonType.PRIMARY_SOLID,
-    size: ButtonIconSize = ButtonIconSize.XL,
+    size: IconSize = IconSize.L,
     isNeedPadding: Boolean = true,
     iconTint: Color? = null,
 ) {
-    val buttonSize = mapIconButtonSize(buttonIconSize = size)
+    val buttonSize = when (size) {
+        IconSize.XS -> ButtonSize.S
+        IconSize.S -> ButtonSize.S
+        IconSize.M -> ButtonSize.M
+        IconSize.L -> ButtonSize.L
+        IconSize.XL -> ButtonSize.L
+    }
+    val paddings = when (size) {
+        IconSize.XS, IconSize.S -> BentoDSTheme.dimensions.x2
+        IconSize.M, IconSize.L, IconSize.XL -> BentoDSTheme.dimensions.x4
+    }
     BentoDSButton(
         modifier = modifier,
         onClick = onClick,
@@ -28,17 +40,11 @@ fun BentoDSIconButton(
         buttonIconSize = size,
         buttonType = buttonType,
         isGotPadding = isNeedPadding,
+        paddingValues = PaddingValues(paddings),
         iconsTint = iconTint,
     )
 }
 
-@Composable
-fun mapIconButtonSize(buttonIconSize: ButtonIconSize) = when(buttonIconSize) {
-    ButtonIconSize.S -> ButtonSize.ICON_S
-    ButtonIconSize.M -> ButtonSize.ICON_M
-    ButtonIconSize.L -> ButtonSize.ICON_L
-    ButtonIconSize.XL -> ButtonSize.ICON_XL
-}
 
 @Preview(showBackground = true)
 @Composable
@@ -52,17 +58,17 @@ fun IconButtonPrimarySolidPreview() {
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.L,
+                size = IconSize.L,
             )
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.M,
+                size = IconSize.M,
             )
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.S,
+                size = IconSize.S,
             )
         }
     }
@@ -81,19 +87,19 @@ fun IconButtonPrimaryOutlinedPreview() {
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.L,
+                size = IconSize.L,
                 buttonType = ButtonType.PRIMARY_OUTLINED,
             )
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.M,
+                size = IconSize.M,
                 buttonType = ButtonType.PRIMARY_OUTLINED,
             )
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.S,
+                size = IconSize.S,
                 buttonType = ButtonType.PRIMARY_OUTLINED,
             )
         }
@@ -113,19 +119,19 @@ fun IconButtonPrimaryTransparentPreview() {
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.L,
+                size = IconSize.L,
                 buttonType = ButtonType.PRIMARY_TRANSPARENT,
             )
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.M,
+                size = IconSize.M,
                 buttonType = ButtonType.PRIMARY_TRANSPARENT,
             )
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {},
-                size = ButtonIconSize.S,
+                size = IconSize.S,
                 buttonType = ButtonType.PRIMARY_TRANSPARENT,
             )
         }

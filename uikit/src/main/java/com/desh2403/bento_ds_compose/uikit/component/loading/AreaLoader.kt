@@ -40,13 +40,13 @@ fun AreaLoader(
             Box(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(color = BentoDSTheme.colors.bgScrim),
+                    .background(color = BentoDSTheme.colors.bg.scrim),
                 contentAlignment = Alignment.Center,
             ) {
                 Column(
                     modifier = Modifier
                         .background(
-                            color = BentoDSTheme.colors.bgPrimary,
+                            color = BentoDSTheme.colors.bg.primary,
                             shape = BentoDSTheme.shapes.cardShape,
                         )
                         .padding(
@@ -59,7 +59,7 @@ fun AreaLoader(
                     Text(
                         text = text,
                         style = BentoDSTheme.typography.bodyMedium,
-                        color = BentoDSTheme.colors.textPrimary,
+                        color = BentoDSTheme.colors.text.primary,
                     )
                 }
 
@@ -131,9 +131,9 @@ fun LoaderBox() {
             }
             animatedValue
         }
-        val firstCircleColor = BentoDSTheme.colors.brandPrimary
-        val secondCircleColor = BentoDSTheme.colors.brandSecondary
-        val thirdCircleColor = BentoDSTheme.colors.brandTertiary
+        val firstCircleColor = BentoDSTheme.colors.brand.primary
+        val secondCircleColor = BentoDSTheme.colors.brand.secondary
+        val thirdCircleColor = BentoDSTheme.colors.brand.tertiary
 
         val secondCirclePositionX = remember { CIRCLE_RADIUS_MAX_DP * 3 + SPACE_BETWEEN_CIRCLES_DP }
         val thirdCirclePositionX = remember { CIRCLE_RADIUS_MAX_DP * 5 + SPACE_BETWEEN_CIRCLES_DP * 2 }

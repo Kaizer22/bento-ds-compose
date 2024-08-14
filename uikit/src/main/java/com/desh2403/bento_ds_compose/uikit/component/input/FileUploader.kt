@@ -43,10 +43,10 @@ fun FileUploader(
         InputHeader(
             label = label,
             showInfoButton = showInfoButton,
-            infoIconTint = BentoDSTheme.colors.textNegative,
+            infoIconTint = BentoDSTheme.colors.text.negative,
         )
         VSpace(h = BentoDSTheme.dimensions.x1)
-        val borderColor = BentoDSTheme.colors.outlineInputEnabled
+        val borderColor = BentoDSTheme.colors.outline.inputEnabled
         val localDensity = LocalDensity.current
         val stroke = remember {
             Stroke(
@@ -85,7 +85,7 @@ fun FileUploader(
                     Text(
                         text = browseFileText,
                         style = BentoDSTheme.typography.bodyMedium,
-                        color = BentoDSTheme.colors.textPrimary,
+                        color = BentoDSTheme.colors.text.primary,
                     )
                     VSpace(h = BentoDSTheme.dimensions.x2)
                     BentoDSButton(
@@ -100,7 +100,7 @@ fun FileUploader(
         VSpace(h = BentoDSTheme.dimensions.x1)
         InputAssistiveText(
             assistiveText = assistiveText,
-            errorIconTint = BentoDSTheme.colors.textNegative,
+            errorIconTint = BentoDSTheme.colors.text.negative,
             isError = isError,
         )
     }

@@ -10,8 +10,8 @@ import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.FSpace
 import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
-import com.desh2403.bento_ds_compose.uikit.component.button.ButtonIconSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
+import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 import kotlinx.coroutines.launch
 
@@ -28,7 +28,7 @@ fun InputHeader(
             Text(
                 text = label,
                 style = BentoDSTheme.typography.labelSmall,
-                color = BentoDSTheme.colors.textSecondary,
+                color = BentoDSTheme.colors.text.secondary,
             )
         }
         if (showInfoButton) {
@@ -43,7 +43,7 @@ fun InputHeader(
             //) {
             BentoDSIconButton(
                 iconRes = R.drawable.ic_question_circle,
-                size = ButtonIconSize.M,
+                size = IconSize.M,
                 isNeedPadding = false,
                 iconTint = infoIconTint,
                 buttonType = ButtonType.PRIMARY_TRANSPARENT,

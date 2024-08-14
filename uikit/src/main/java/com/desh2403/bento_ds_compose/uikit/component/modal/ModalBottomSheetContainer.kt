@@ -27,7 +27,7 @@ fun ModalBottomSheetContainer(
             Text(
                 text = it,
                 style = BentoDSTheme.typography.titleLarge,
-                color = BentoDSTheme.colors.textPrimary,
+                color = BentoDSTheme.colors.text.primary,
             )
             VSpace(h = BentoDSTheme.dimensions.x6)
         }

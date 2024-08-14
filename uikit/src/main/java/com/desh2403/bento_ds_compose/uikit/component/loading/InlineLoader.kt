@@ -54,7 +54,7 @@ fun InlineLoader(
             Text(
                 text = text,
                 style = BentoDSTheme.typography.bodyMedium,
-                color = BentoDSTheme.colors.textSecondary,
+                color = BentoDSTheme.colors.text.secondary,
             )
         }
     }

@@ -3,14 +3,14 @@ package com.desh2403.bento_ds_compose.uikit.component.button
 import android.view.MotionEvent
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,10 +23,14 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInteropFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
+import com.desh2403.bento_ds_compose.uikit.component.VSpace
+import com.desh2403.bento_ds_compose.uikit.component.info.BentoDSIcon
+import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 
@@ -34,16 +38,13 @@ enum class ButtonType {
     PRIMARY_SOLID, PRIMARY_OUTLINED, PRIMARY_TRANSPARENT,
     SECONDARY_SOLID, SECONDARY_OUTLINED, SECONDARY_TRANSPARENT,
     DANGER_SOLID, DANGER_OUTLINED, DANGER_TRANSPARENT,
+    POSITIVE_SOLID, POSITIVE_OUTLINED, POSITIVE_TRANSPARENT,
+    WARNING_SOLID, WARNING_OUTLINED, WARNING_TRANSPARENT,
     // POSITIVE, WARNING
 }
 
 enum class ButtonSize {
     S, M, L,
-    ICON_S, ICON_M, ICON_L, ICON_XL
-}
-
-enum class ButtonIconSize {
-    S, M, L, XL
 }
 
 private const val OUTLINED_BUTTON_BORDER_WIDTH = 1
@@ -64,19 +65,22 @@ fun BentoDSButton(
     isFillMaxWidth: Boolean = false,
     buttonType: ButtonType = ButtonType.PRIMARY_SOLID,
     buttonSize: ButtonSize = ButtonSize.M,
-    buttonIconSize: ButtonIconSize = ButtonIconSize.XL,
+    buttonIconSize: IconSize = IconSize.L,
     isEnabled: Boolean = true,
     text: String? = null,
     @DrawableRes leadingIcon: Int? = null,
     @DrawableRes trailingIcon: Int? = null,
     iconsTint: Color? = null,
     onClick: () -> Unit,
+    paddingValues: PaddingValues? = null
 ) {
-    val horizontalPadding = if (isGotPadding) mapHorizontalPadding(buttonSize = buttonSize)
-    else BentoDSTheme.dimensions.x0
-    val verticalPadding = if (isGotPadding) mapVerticalPadding(buttonSize = buttonSize)
-    else BentoDSTheme.dimensions.x0
-    val iconSize = mapButtonIconSize(buttonIconSize = buttonIconSize)
+    val paddings = if (!isGotPadding)
+        PaddingValues(BentoDSTheme.dimensions.x0)
+    else
+        paddingValues ?: PaddingValues(
+            horizontal = mapHorizontalPadding(buttonSize = buttonSize),
+            vertical = mapVerticalPadding(buttonSize = buttonSize)
+        )
 
     val buttonPalette = mapButtonPaletteToButtonColors(buttonType = buttonType)
 
@@ -132,10 +136,7 @@ fun BentoDSButton(
                 },
             enabled = isEnabled,
             onClick = onClick,
-            contentPadding = PaddingValues(
-                horizontal = horizontalPadding,
-                vertical = verticalPadding,
-            ),
+            contentPadding = paddings,
             border = borderStroke,
             colors = ButtonDefaults.buttonColors(
                 contentColor = contentColor,
@@ -147,10 +148,9 @@ fun BentoDSButton(
             shape = BentoDSTheme.shapes.buttonShape,
         ) {
             leadingIcon?.let {
-                Icon(
-                    modifier = Modifier.size(iconSize),
-                    painter = painterResource(id = leadingIcon),
-                    contentDescription = "",
+                BentoDSIcon(
+                    iconSize = buttonIconSize,
+                    iconRes = leadingIcon,
                 )
             }
             if (leadingIcon != null && text != null)
@@ -168,10 +168,9 @@ fun BentoDSButton(
             if (trailingIcon != null && text != null)
                 HSpace(w = BentoDSTheme.dimensions.x3)
             trailingIcon?.let {
-                Icon(
-                    modifier = Modifier.size(iconSize),
-                    painter = painterResource(id = trailingIcon),
-                    contentDescription = "",
+                BentoDSIcon(
+                    iconSize = buttonIconSize,
+                    iconRes = trailingIcon,
                 )
             }
         }
@@ -189,14 +188,12 @@ fun mapButtonPaletteToButtonColors(buttonType: ButtonType) = when (buttonType) {
     ButtonType.DANGER_SOLID -> BentoDSTheme.buttonsColors.dangerSolidButton
     ButtonType.DANGER_OUTLINED -> BentoDSTheme.buttonsColors.dangerOutlinedButton
     ButtonType.DANGER_TRANSPARENT -> BentoDSTheme.buttonsColors.dangerTransparentButton
-}
-
-@Composable
-private fun mapButtonIconSize(buttonIconSize: ButtonIconSize) = when (buttonIconSize) {
-    ButtonIconSize.S -> BentoDSTheme.dimensions.x2
-    ButtonIconSize.M -> BentoDSTheme.dimensions.x3
-    ButtonIconSize.L -> BentoDSTheme.dimensions.x4
-    ButtonIconSize.XL -> BentoDSTheme.dimensions.x6
+    ButtonType.POSITIVE_SOLID -> BentoDSTheme.buttonsColors.positiveSolidButton
+    ButtonType.POSITIVE_OUTLINED -> BentoDSTheme.buttonsColors.positiveOutlinedButton
+    ButtonType.POSITIVE_TRANSPARENT -> BentoDSTheme.buttonsColors.positiveTransparentButton
+    ButtonType.WARNING_SOLID -> BentoDSTheme.buttonsColors.warningSolidButton
+    ButtonType.WARNING_OUTLINED -> BentoDSTheme.buttonsColors.warningOutlinedButton
+    ButtonType.WARNING_TRANSPARENT -> BentoDSTheme.buttonsColors.warningTransparentButton
 }
 
 @Composable
@@ -204,16 +201,66 @@ private fun mapVerticalPadding(buttonSize: ButtonSize) = when (buttonSize) {
     ButtonSize.S -> BentoDSTheme.dimensions.x2
     ButtonSize.M -> BentoDSTheme.dimensions.x3
     ButtonSize.L -> BentoDSTheme.dimensions.x4
-    ButtonSize.ICON_S, ButtonSize.ICON_M -> BentoDSTheme.dimensions.x2
-    ButtonSize.ICON_L, ButtonSize.ICON_XL -> BentoDSTheme.dimensions.x4
 }
 
 @Composable
 private fun mapHorizontalPadding(buttonSize: ButtonSize) = when (buttonSize) {
     ButtonSize.S, ButtonSize.M -> BentoDSTheme.dimensions.x4
     ButtonSize.L -> BentoDSTheme.dimensions.x6
-    ButtonSize.ICON_S, ButtonSize.ICON_M -> BentoDSTheme.dimensions.x2
-    ButtonSize.ICON_L, ButtonSize.ICON_XL -> BentoDSTheme.dimensions.x4
 }
 
+@Composable
+@Preview(
+    showBackground = true,
+    widthDp = 1000,
+    heightDp = 1100,
+)
+fun ButtonsPreview() {
+    BentoDSTheme {
+        Column {
+            ButtonType.entries.forEach { type ->
+                Row {
+                    ButtonSize.entries.forEach { size ->
+                        BentoDSButton(
+                            buttonType = type,
+                            buttonSize = size,
+                            text = "Button",
+                            leadingIcon = R.drawable.ic_placeholder,
+                            trailingIcon = R.drawable.ic_placeholder,
+                            onClick = {},
+                        )
+                        HSpace(w = 8.dp)
+                    }
+                }
+                VSpace(h = 8.dp)
+            }
+            BentoDSButton(
+                isEnabled = false,
+                text = "Button",
+                leadingIcon = R.drawable.ic_placeholder,
+                trailingIcon = R.drawable.ic_placeholder,
+                onClick = {},
+                isFillMaxWidth = true,
+            )
+            BentoDSButton(
+                buttonType = ButtonType.DANGER_OUTLINED,
+                isEnabled = false,
+                text = "Button",
+                leadingIcon = R.drawable.ic_placeholder,
+                trailingIcon = R.drawable.ic_placeholder,
+                onClick = {},
+                isFillMaxWidth = true,
+            )
+            BentoDSButton(
+                buttonType = ButtonType.DANGER_TRANSPARENT,
+                isEnabled = false,
+                text = "Button",
+                leadingIcon = R.drawable.ic_placeholder,
+                trailingIcon = R.drawable.ic_placeholder,
+                onClick = {},
+                isFillMaxWidth = true,
+            )
+        }
+    }
+}
 

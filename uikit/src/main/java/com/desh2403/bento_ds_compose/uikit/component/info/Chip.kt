@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
-import com.desh2403.bento_ds_compose.uikit.component.button.ButtonIconSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
@@ -24,7 +23,7 @@ import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 fun Chip(
     modifier: Modifier = Modifier,
     label: String,
-    color: Color = BentoDSTheme.colors.softRed,
+    color: Color = BentoDSTheme.colors.visualisation.softRed,
     @DrawableRes leadingIcon: Int? = null,
     @DrawableRes trailingButtonIcon:  Int? = null,
     onTrailingButtonClick: (() -> Unit)? = null,
@@ -53,13 +52,13 @@ fun Chip(
         Text(
             text = label,
             style = BentoDSTheme.typography.labelSmall,
-            color = BentoDSTheme.colors.textPrimary,
+            color = BentoDSTheme.colors.text.primary,
         )
         HSpace(w = BentoDSTheme.dimensions.x2)
         trailingButtonIcon?.let {
             BentoDSIconButton(
                 iconRes = trailingButtonIcon,
-                size = ButtonIconSize.L,
+                size = IconSize.L,
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
                 isNeedPadding = false,
                 onClick = onTrailingButtonClick ?: {},

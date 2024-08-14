@@ -14,7 +14,7 @@ import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 fun BentoDSCard(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues = PaddingValues(BentoDSTheme.dimensions.x6),
-    color: Color = BentoDSTheme.colors.bgPrimary,
+    color: Color = BentoDSTheme.colors.bg.primary,
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {

@@ -19,7 +19,6 @@ import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSButton
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
-import com.desh2403.bento_ds_compose.uikit.component.button.ButtonIconSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
@@ -48,25 +47,25 @@ fun BentoDSBanner(
         BentoDSBannerType.SECONDARY -> R.drawable.ic_lightbulb_solid
     }
     val titleColor = when (bannerType) {
-        BentoDSBannerType.INFORMATIVE -> BentoDSTheme.colors.textInformative
-        BentoDSBannerType.POSITIVE -> BentoDSTheme.colors.textPositive
-        BentoDSBannerType.WARNING -> BentoDSTheme.colors.textWarning
-        BentoDSBannerType.NEGATIVE -> BentoDSTheme.colors.textNegative
-        BentoDSBannerType.SECONDARY -> BentoDSTheme.colors.textSecondary
+        BentoDSBannerType.INFORMATIVE -> BentoDSTheme.colors.text.informative
+        BentoDSBannerType.POSITIVE -> BentoDSTheme.colors.text.positive
+        BentoDSBannerType.WARNING -> BentoDSTheme.colors.text.warning
+        BentoDSBannerType.NEGATIVE -> BentoDSTheme.colors.text.negative
+        BentoDSBannerType.SECONDARY -> BentoDSTheme.colors.text.secondary
     }
     val backgroundColor = when (bannerType) {
-        BentoDSBannerType.INFORMATIVE -> BentoDSTheme.colors.bgInformative
-        BentoDSBannerType.POSITIVE -> BentoDSTheme.colors.bgPositive
-        BentoDSBannerType.WARNING -> BentoDSTheme.colors.bgWarning
-        BentoDSBannerType.NEGATIVE -> BentoDSTheme.colors.bgNegative
-        BentoDSBannerType.SECONDARY -> BentoDSTheme.colors.bgSecondary
+        BentoDSBannerType.INFORMATIVE -> BentoDSTheme.colors.bg.informative
+        BentoDSBannerType.POSITIVE -> BentoDSTheme.colors.bg.positive
+        BentoDSBannerType.WARNING -> BentoDSTheme.colors.bg.warning
+        BentoDSBannerType.NEGATIVE -> BentoDSTheme.colors.bg.negative
+        BentoDSBannerType.SECONDARY -> BentoDSTheme.colors.bg.secondary
     }
     val iconColor = when (bannerType) {
-        BentoDSBannerType.INFORMATIVE -> BentoDSTheme.colors.fgInformative
-        BentoDSBannerType.POSITIVE -> BentoDSTheme.colors.fgPositive
-        BentoDSBannerType.WARNING -> BentoDSTheme.colors.fgWarning
-        BentoDSBannerType.NEGATIVE -> BentoDSTheme.colors.fgNegative
-        BentoDSBannerType.SECONDARY -> BentoDSTheme.colors.fgSecondary
+        BentoDSBannerType.INFORMATIVE -> BentoDSTheme.colors.fg.informative
+        BentoDSBannerType.POSITIVE -> BentoDSTheme.colors.fg.positive
+        BentoDSBannerType.WARNING -> BentoDSTheme.colors.fg.warning
+        BentoDSBannerType.NEGATIVE -> BentoDSTheme.colors.fg.negative
+        BentoDSBannerType.SECONDARY -> BentoDSTheme.colors.fg.secondary
     }
     Column(
         modifier = modifier
@@ -114,7 +113,7 @@ fun BentoDSBanner(
             }
             onCloseClick?.let {
                 BentoDSIconButton(
-                    size = ButtonIconSize.L,
+                    size = IconSize.L,
                     buttonType = ButtonType.SECONDARY_TRANSPARENT,
                     iconRes = R.drawable.ic_x,
                     onClick = onCloseClick,

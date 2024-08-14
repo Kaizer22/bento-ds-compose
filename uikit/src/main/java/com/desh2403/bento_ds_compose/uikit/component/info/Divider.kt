@@ -19,8 +19,8 @@ fun BentoDSDivider(
     dividerType: DividerType,
 ) {
     val dividerColor = when(dividerType){
-        DividerType.NORMAL -> BentoDSTheme.colors.brandSecondary
-        DividerType.DECORATIVE -> BentoDSTheme.colors.outlineDecorative
+        DividerType.NORMAL -> BentoDSTheme.colors.brand.secondary
+        DividerType.DECORATIVE -> BentoDSTheme.colors.outline.decorative
     }
     val dividerThickness = when(dividerType) {
         DividerType.NORMAL -> BentoDSTheme.dimensions.x0_5

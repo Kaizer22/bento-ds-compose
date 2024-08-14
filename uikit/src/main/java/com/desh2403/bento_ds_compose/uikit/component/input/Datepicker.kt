@@ -163,7 +163,7 @@ fun DatePickerDay(
             .size(44.dp)
             .background(
                 color = when {
-                    isSelected -> BentoDSTheme.colors.fgInteractive
+                    isSelected -> BentoDSTheme.colors.fg.interactive
                     //isWeekend -> Color.LightGray
                     else -> Color.Transparent
                 },
@@ -176,8 +176,8 @@ fun DatePickerDay(
             Text(
                 text = number.toString(),
                 color = if (isSelected)
-                    BentoDSTheme.colors.prSolidEnabledFg else
-                    BentoDSTheme.colors.textPrimary,
+                    BentoDSTheme.colors.primary.solidEnabledFg else
+                    BentoDSTheme.colors.text.primary,
                 style = if (isToday) {
                     BentoDSTheme.typography.bodyMediumStrong
                 } else {

@@ -59,14 +59,14 @@ fun MenuHeader(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = BentoDSTheme.colors.bgSecondary)
+            .background(color = BentoDSTheme.colors.bg.secondary)
             .padding(BentoDSTheme.dimensions.x6),
         contentAlignment = Alignment.Center,
     ) {
         Text(
             text = text,
             style = BentoDSTheme.typography.bodyMedium,
-            color = BentoDSTheme.colors.textPrimary,
+            color = BentoDSTheme.colors.text.primary,
         )
     }
 }
@@ -91,7 +91,7 @@ fun MenuItem(
         Text(
             text = text,
             style = BentoDSTheme.typography.bodyMedium,
-            color = BentoDSTheme.colors.textPrimary,
+            color = BentoDSTheme.colors.text.primary,
         )
     }
 }

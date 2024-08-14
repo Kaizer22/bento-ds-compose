@@ -151,7 +151,7 @@ fun BentoDSInputField(
                                 .border(
                                     width = 1.dp,
                                     color = if (state == InputFieldState.ENABLED && isFocused)
-                                        BentoDSTheme.colors.outlineInputFocus
+                                        BentoDSTheme.colors.outline.inputFocus
                                     else inputPalette.borderColor,
                                     shape = BentoDSTheme.shapes.buttonShape
                                 )
