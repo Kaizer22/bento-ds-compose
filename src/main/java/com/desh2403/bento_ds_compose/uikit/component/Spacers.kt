@@ -18,21 +18,13 @@ fun ColumnScope.FSpace() = Spacer(modifier = Modifier.weight(1f))
 
 @Composable
 fun VSpace(
-    modifier: Modifier = Modifier,
     h: Dp
-) = Space(
-    modifier = modifier,
-    w = 0.dp, h = h,
-)
+) = Space(w = 0.dp, h = h,)
 
 @Composable
 fun HSpace(
-    modifier: Modifier = Modifier,
     w: Dp
-) = Space(
-    modifier = modifier,
-    w = w, h = 0.dp,
-)
+) = Space(w = w, h = 0.dp)
 
 @Composable
 fun Space(

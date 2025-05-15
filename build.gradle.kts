@@ -1,5 +1,7 @@
 plugins {
     id("com.android.library")
+    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -55,32 +57,21 @@ android {
 //}
 
 dependencies {
-    val compose = '1.6.5'
-    val material3 = "1.2.1"
-    val lifecycleRuntimeKtx = "2.7.0"
-    val activityCompose = "1.8.2"
-    val coreKtx = "1.12.0"
-    val appcompat = "1.6.1"
-    val junit = "4.13.2"
-    val androidxTestExtJunit = "1.1.5"
-    val espressoCore = "3.5.1"
     // UI
-    implementation("androidx.compose.ui:ui:$compose")
-    implementation("androidx.compose.ui:ui-graphics:$compose")
-    implementation("androidx.compose.ui:ui-tooling-preview:$compose")
-    //implementation(libs.material)
-    implementation ("androidx.compose.material3:material3:")
-    implementation("com.google.accompanist:accompanist-navigation-material")
-    implementation(platform("androidx.compose:compose-bom:2024.04.00"))
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtx")
-    implementation("androidx.activity:activity-compose:$activityCompose")
-    debugImplementation("androidx.compose.ui:ui-tooling:$compose")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$compose")
-    implementation("androidx.navigation:navigation-compose:$compose")
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.ui.graphics)
+    implementation (libs.androidx.material3)
+    implementation(libs.accompanist.navigation.material)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.activity.compose)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.androidx.navigation.compose)
 
-    implementation("androidx.core:core-ktx:$coreKtx")
-    implementation("androidx.appcompat:appcompat:$appcompat")
-    testImplementation("junit.junit:$junit")
-    androidTestImplementation("androidx.test.ext:junit:$androidxTestExtJunit")
-    androidTestImplementation("androidx.test.espresso:espresso-core:")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.appcompat)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.androidx.espresso.core)
 }

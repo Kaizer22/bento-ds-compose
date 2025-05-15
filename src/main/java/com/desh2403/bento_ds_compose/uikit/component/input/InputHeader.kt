@@ -25,11 +25,7 @@ fun InputHeader(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         label?.let {
-            Text(
-                text = label,
-                style = BentoDSTheme.typography.labelSmall,
-                color = BentoDSTheme.colors.text.secondary,
-            )
+            InputLabel(label)
         }
         if (showInfoButton) {
             //val infoTooltipState = rememberTooltipState()
@@ -60,4 +56,15 @@ fun InputHeader(
             VSpace(h = BentoDSTheme.dimensions.x1)
         }
     }
+}
+
+@Composable
+fun InputLabel(
+    label: String,
+) {
+    Text(
+        text = label,
+        style = BentoDSTheme.typography.labelSmall,
+        color = BentoDSTheme.colors.text.secondary,
+    )
 }
