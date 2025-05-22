@@ -42,7 +42,7 @@ fun Action(
                     isFillMaxWidth = banner.isFillMaxWidth,
                 )
             }
-            VSpace(h = BentoDSTheme.dimensions.x2)
+            VSpace(h = BentoDSTheme.dims.x2)
         }
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -52,7 +52,7 @@ fun Action(
                 InlineLoader(
                     text = loaderText,
                 )
-                HSpace(w = BentoDSTheme.dimensions.x4)
+                HSpace(w = BentoDSTheme.dims.x4)
             }
             BentoDSButton(
                 text = cancelButtonText,
@@ -60,7 +60,7 @@ fun Action(
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
                 onClick = onCancelClick,
             )
-            HSpace(w = BentoDSTheme.dimensions.x4)
+            HSpace(w = BentoDSTheme.dims.x4)
             BentoDSButton(
                 text = actionButtonText,
                 buttonSize = buttonSize,
@@ -91,7 +91,7 @@ fun ActionPreview() {
                 actionButtonText = "Action",
                 onActionClick = {},
             )
-            VSpace(h = BentoDSTheme.dimensions.x4)
+            VSpace(h = BentoDSTheme.dims.x4)
             Action(
                 banner = ActionBannerInfo(
                     bannerType = BentoDSBannerType.NEGATIVE,
@@ -106,7 +106,7 @@ fun ActionPreview() {
                 actionButtonText = "Action",
                 onActionClick = {},
             )
-            VSpace(h = BentoDSTheme.dimensions.x4)
+            VSpace(h = BentoDSTheme.dims.x4)
             Action(
                 banner = ActionBannerInfo(
                     bannerType = BentoDSBannerType.NEGATIVE,
@@ -121,7 +121,7 @@ fun ActionPreview() {
                 actionButtonText = "Action",
                 onActionClick = {},
             )
-            VSpace(h = BentoDSTheme.dimensions.x4)
+            VSpace(h = BentoDSTheme.dims.x4)
             Action(
                 buttonSize = ButtonSize.L,
                 isLoading = true,
@@ -131,7 +131,7 @@ fun ActionPreview() {
                 actionButtonText = "Action",
                 onActionClick = {},
             )
-            VSpace(h = BentoDSTheme.dimensions.x4)
+            VSpace(h = BentoDSTheme.dims.x4)
             Action(
                 buttonSize = ButtonSize.L,
                 isLoading = false,
@@ -141,10 +141,10 @@ fun ActionPreview() {
                 actionButtonText = "Action",
                 onActionClick = {},
             )
-            VSpace(h = BentoDSTheme.dimensions.x4)
+            VSpace(h = BentoDSTheme.dims.x4)
             Action(
                 buttonSize = ButtonSize.L,
-                actionButtonType = ButtonType.DANGER_SOLID,
+                actionButtonType = ButtonType.NEGATIVE_SOLID,
                 isLoading = false,
                 loaderText = "Loading",
                 cancelButtonText = "Cancel",

@@ -1,4 +1,4 @@
-package com.desh2403.bento_ds_compose.uikit.component.input
+package com.desh2403.bento_ds_compose.uikit.component.input.field
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Text
@@ -53,7 +53,7 @@ fun InputHeader(
             //}
         }
         if (label != null || showInfoButton) {
-            VSpace(h = BentoDSTheme.dimensions.x1)
+            VSpace(h = BentoDSTheme.dims.x1)
         }
     }
 }

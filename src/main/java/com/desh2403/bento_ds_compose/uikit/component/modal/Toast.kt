@@ -53,8 +53,8 @@ fun Toast(
     BentoDSCard(
         color = backgroundColor,
         paddingValues = PaddingValues(
-            horizontal = BentoDSTheme.dimensions.x6,
-            vertical = BentoDSTheme.dimensions.x3,
+            horizontal = BentoDSTheme.dims.x6,
+            vertical = BentoDSTheme.dims.x3,
         ),
     ) {
         Row(
@@ -71,14 +71,14 @@ fun Toast(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 action?.let {
-                    HSpace(w = BentoDSTheme.dimensions.x4)
+                    HSpace(w = BentoDSTheme.dims.x4)
                     BentoDSButton(
                         buttonType = ButtonType.SECONDARY_TRANSPARENT,
                         text = action.name,
                         onClick = action.onClick,
                     )
                 }
-                HSpace(w = BentoDSTheme.dimensions.x4)
+                HSpace(w = BentoDSTheme.dims.x4)
                 BentoDSIconButton(
                     buttonType = ButtonType.SECONDARY_TRANSPARENT,
                     isNeedPadding = false,

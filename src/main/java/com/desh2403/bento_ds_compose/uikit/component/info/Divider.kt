@@ -23,8 +23,8 @@ fun BentoDSDivider(
         DividerType.DECORATIVE -> BentoDSTheme.colors.outline.decorative
     }
     val dividerThickness = when(dividerType) {
-        DividerType.NORMAL -> BentoDSTheme.dimensions.x0_5
-        DividerType.DECORATIVE -> BentoDSTheme.dimensions.x0_25
+        DividerType.NORMAL -> BentoDSTheme.dims.x0_5
+        DividerType.DECORATIVE -> BentoDSTheme.dims.x0_25
     }
     HorizontalDivider(
         modifier = modifier,

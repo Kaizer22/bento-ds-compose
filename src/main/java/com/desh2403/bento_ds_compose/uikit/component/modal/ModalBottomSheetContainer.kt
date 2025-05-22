@@ -16,10 +16,10 @@ fun ModalBottomSheetContainer(
     Column(
         modifier = Modifier
             .padding(
-                top = BentoDSTheme.dimensions.x10,
-                start = BentoDSTheme.dimensions.x6,
-                end = BentoDSTheme.dimensions.x6,
-                bottom = BentoDSTheme.dimensions.x6,
+                top = BentoDSTheme.dims.x10,
+                start = BentoDSTheme.dims.x6,
+                end = BentoDSTheme.dims.x6,
+                bottom = BentoDSTheme.dims.x6,
             )
             //.sizeIn(minHeight = BentoDSTheme.dimensions.x60)
     ) {
@@ -29,7 +29,7 @@ fun ModalBottomSheetContainer(
                 style = BentoDSTheme.typography.titleLarge,
                 color = BentoDSTheme.colors.text.primary,
             )
-            VSpace(h = BentoDSTheme.dimensions.x6)
+            VSpace(h = BentoDSTheme.dims.x6)
         }
         content.invoke()
     }

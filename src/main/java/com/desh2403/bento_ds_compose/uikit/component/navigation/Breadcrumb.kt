@@ -33,12 +33,12 @@ fun Breadcrumb(
                     text = item,
                     onClick = { onClick.invoke(item) }
                 )
-                HSpace(w = BentoDSTheme.dimensions.x4)
+                HSpace(w = BentoDSTheme.dims.x4)
                 BentoDSIcon(
                     iconSize = IconSize.S,
                     iconRes = R.drawable.ic_chevron_right,
                 )
-                HSpace(w = BentoDSTheme.dimensions.x4)
+                HSpace(w = BentoDSTheme.dims.x4)
             } else {
                 Text(
                     text = item,

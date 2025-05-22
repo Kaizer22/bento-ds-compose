@@ -67,7 +67,7 @@ object BentoDSTheme {
         @ReadOnlyComposable
         get() = LocalPAInputFieldStateColors.current
 
-    val dimensions: BentoDSDimensions
+    val dims: BentoDSDimensions
         @Composable
         @ReadOnlyComposable
         get() = LocalBentoDSDimensions.current

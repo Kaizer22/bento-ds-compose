@@ -29,10 +29,10 @@ import kotlinx.coroutines.delay
 
 // TODO AreaLoader
 @Composable
-fun AreaLoader(
+fun BentoDSAreaLoader(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
-    text: String,
+    text: String? = null,
     content: @Composable () -> Unit,
 ) {
     Box {
@@ -50,17 +50,19 @@ fun AreaLoader(
                             shape = BentoDSTheme.shapes.cardShape,
                         )
                         .padding(
-                            BentoDSTheme.dimensions.x10,
+                            BentoDSTheme.dims.x10,
                         ),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     LoaderBox()
-                    VSpace(h = BentoDSTheme.dimensions.x6)
-                    Text(
-                        text = text,
-                        style = BentoDSTheme.typography.bodyMedium,
-                        color = BentoDSTheme.colors.text.primary,
-                    )
+                    VSpace(h = BentoDSTheme.dims.x6)
+                    text?.let {
+                        Text(
+                            text = text,
+                            style = BentoDSTheme.typography.bodyMedium,
+                            color = BentoDSTheme.colors.text.primary,
+                        )
+                    }
                 }
 
             }
@@ -82,7 +84,7 @@ private const val SPACE_BETWEEN_CIRCLES_DP = 8
 fun LoaderBox() {
     Box(
         modifier = Modifier.padding(
-            BentoDSTheme.dimensions.x10,
+            BentoDSTheme.dims.x10,
         )
     ) {
         val localDensity = LocalDensity.current
@@ -136,7 +138,8 @@ fun LoaderBox() {
         val thirdCircleColor = BentoDSTheme.colors.brand.tertiary
 
         val secondCirclePositionX = remember { CIRCLE_RADIUS_MAX_DP * 3 + SPACE_BETWEEN_CIRCLES_DP }
-        val thirdCirclePositionX = remember { CIRCLE_RADIUS_MAX_DP * 5 + SPACE_BETWEEN_CIRCLES_DP * 2 }
+        val thirdCirclePositionX =
+            remember { CIRCLE_RADIUS_MAX_DP * 5 + SPACE_BETWEEN_CIRCLES_DP * 2 }
 
         Canvas(
             modifier = Modifier.size(

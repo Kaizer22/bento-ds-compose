@@ -13,17 +13,17 @@ import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 @Composable
 fun BentoDSCard(
     modifier: Modifier = Modifier,
-    paddingValues: PaddingValues = PaddingValues(BentoDSTheme.dimensions.x6),
+    paddingValues: PaddingValues = PaddingValues(BentoDSTheme.dims.x6),
     color: Color = BentoDSTheme.colors.bg.primary,
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
-    Box(modifier = Modifier.padding(BentoDSTheme.dimensions.x3)) {
+    Box(modifier = Modifier.padding(BentoDSTheme.dims.x3)) {
         Card(
             modifier = modifier,
             shape = BentoDSTheme.shapes.cardShape,
             elevation = CardDefaults.cardElevation(
-                defaultElevation = BentoDSTheme.dimensions.elevationSmall
+                defaultElevation = BentoDSTheme.dims.elevationSmall
             ),
             onClick = onClick ?: {},
             colors = CardDefaults.cardColors(

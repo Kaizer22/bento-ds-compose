@@ -1,4 +1,4 @@
-package com.desh2403.bento_ds_compose.uikit.component.input
+package com.desh2403.bento_ds_compose.uikit.component.input.field
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -20,19 +20,19 @@ fun InputAssistiveText(
     isError: Boolean,
 ) {
     if (isError || assistiveText != null) {
-        VSpace(h = BentoDSTheme.dimensions.x1)
+        VSpace(h = BentoDSTheme.dims.x1)
         Row {
-            HSpace(w = BentoDSTheme.dimensions.x4)
+            HSpace(w = BentoDSTheme.dims.x4)
             if (isError) {
                 Icon(
                     modifier = Modifier.size(
-                        BentoDSTheme.dimensions.x4
+                        BentoDSTheme.dims.x4
                     ),
                     tint = errorIconTint,
                     painter = painterResource(id = R.drawable.ic_negative_solid),
                     contentDescription = null,
                 )
-                HSpace(w = BentoDSTheme.dimensions.x1)
+                HSpace(w = BentoDSTheme.dims.x1)
             }
             Text(
                 text = assistiveText.orEmpty(),

@@ -20,6 +20,10 @@ import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSButton
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
+import com.desh2403.bento_ds_compose.uikit.component.input.field.ERROR_STATES
+import com.desh2403.bento_ds_compose.uikit.component.input.field.FieldState
+import com.desh2403.bento_ds_compose.uikit.component.input.field.InputAssistiveText
+import com.desh2403.bento_ds_compose.uikit.component.input.field.InputHeader
 import com.desh2403.bento_ds_compose.uikit.component.loading.InlineLoader
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
@@ -35,7 +39,7 @@ fun FileUploader(
     label: String? = null,
     assistiveText: String? = null,
     showInfoButton: Boolean = false,
-    state: InputFieldState = InputFieldState.ENABLED,
+    state: FieldState = FieldState.ENABLED,
     isLoading: Boolean,
 ) {
     val isError = remember(state) { ERROR_STATES.contains(state) }
@@ -45,7 +49,7 @@ fun FileUploader(
             showInfoButton = showInfoButton,
             infoIconTint = BentoDSTheme.colors.text.negative,
         )
-        VSpace(h = BentoDSTheme.dimensions.x1)
+        VSpace(h = BentoDSTheme.dims.x1)
         val borderColor = BentoDSTheme.colors.outline.inputEnabled
         val localDensity = LocalDensity.current
         val stroke = remember {
@@ -71,7 +75,7 @@ fun FileUploader(
                         )
                     )
                 }
-                .padding(BentoDSTheme.dimensions.x4),
+                .padding(BentoDSTheme.dims.x4),
             contentAlignment = Alignment.Center,
         ) {
             if (isLoading) {
@@ -87,7 +91,7 @@ fun FileUploader(
                         style = BentoDSTheme.typography.bodyMedium,
                         color = BentoDSTheme.colors.text.primary,
                     )
-                    VSpace(h = BentoDSTheme.dimensions.x2)
+                    VSpace(h = BentoDSTheme.dims.x2)
                     BentoDSButton(
                         text = browseFileButtonText,
                         buttonType = ButtonType.SECONDARY_OUTLINED,
@@ -97,7 +101,7 @@ fun FileUploader(
                 }
             }
         }
-        VSpace(h = BentoDSTheme.dimensions.x1)
+        VSpace(h = BentoDSTheme.dims.x1)
         InputAssistiveText(
             assistiveText = assistiveText,
             errorIconTint = BentoDSTheme.colors.text.negative,

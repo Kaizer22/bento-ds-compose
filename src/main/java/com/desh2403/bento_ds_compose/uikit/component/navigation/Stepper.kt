@@ -48,7 +48,7 @@ fun Stepper(
                 doneIcon = doneIcon,
             )
             if (index != steps.size - 1) {
-                HSpace(w = BentoDSTheme.dimensions.x10)
+                HSpace(w = BentoDSTheme.dims.x10)
             }
         }
     }
@@ -72,7 +72,7 @@ private fun Step(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         StepIcon(state = state, number = number, doneIcon = doneIcon)
-        HSpace(w = BentoDSTheme.dimensions.x2)
+        HSpace(w = BentoDSTheme.dims.x2)
         Text(
             text = label,
             style = BentoDSTheme.typography.labelLarge,
@@ -91,7 +91,7 @@ private fun StepIcon(
         StepState.DONE -> {
             BentoDSIcon(
                 modifier = Modifier.padding(
-                    BentoDSTheme.dimensions.x1
+                    BentoDSTheme.dims.x1
                 ),
                 iconSize = IconSize.L,
                 iconRes = doneIcon,
@@ -103,7 +103,7 @@ private fun StepIcon(
             Box(
                 modifier = Modifier
                     .size(
-                        BentoDSTheme.dimensions.x8
+                        BentoDSTheme.dims.x8
                     )
                     .background(
                         color = BentoDSTheme.colors.bg.overlay,
@@ -123,7 +123,7 @@ private fun StepIcon(
             Box(
                 modifier = Modifier
                     .size(
-                        BentoDSTheme.dimensions.x8
+                        BentoDSTheme.dims.x8
                     )
                     .background(
                         color = BentoDSTheme.colors.bg.interactive,

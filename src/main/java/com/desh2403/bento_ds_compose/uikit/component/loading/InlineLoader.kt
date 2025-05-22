@@ -45,12 +45,12 @@ fun InlineLoader(
             painter = painterResource(id = R.drawable.ic_spinner),
             contentDescription = null,
             modifier = Modifier
-                .size(BentoDSTheme.dimensions.x4)
+                .size(BentoDSTheme.dims.x4)
                 .rotate(rotationAngle)
                 .aspectRatio(1f)
         )
         text?.let {
-            HSpace(w = BentoDSTheme.dimensions.x2)
+            HSpace(w = BentoDSTheme.dims.x2)
             Text(
                 text = text,
                 style = BentoDSTheme.typography.bodyMedium,

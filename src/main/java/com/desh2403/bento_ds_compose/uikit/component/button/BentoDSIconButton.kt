@@ -29,8 +29,8 @@ fun BentoDSIconButton(
         IconSize.XL -> ButtonSize.L
     }
     val paddings = when (size) {
-        IconSize.XS, IconSize.S -> BentoDSTheme.dimensions.x2
-        IconSize.M, IconSize.L, IconSize.XL -> BentoDSTheme.dimensions.x4
+        IconSize.XS, IconSize.S -> BentoDSTheme.dims.x2
+        IconSize.M, IconSize.L, IconSize.XL -> BentoDSTheme.dims.x4
     }
     BentoDSButton(
         modifier = modifier,

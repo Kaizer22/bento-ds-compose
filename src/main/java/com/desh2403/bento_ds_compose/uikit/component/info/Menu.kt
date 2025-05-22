@@ -26,7 +26,7 @@ fun Menu(
 ) {
     BentoDSCard(
         modifier = modifier.width(MENU_WIDTH_DP.dp),
-        paddingValues = PaddingValues(BentoDSTheme.dimensions.x0)
+        paddingValues = PaddingValues(BentoDSTheme.dims.x0)
     ) {
         Column {
             header?.let {
@@ -35,7 +35,7 @@ fun Menu(
                 )
             }
             Box(
-                modifier = Modifier.padding(BentoDSTheme.dimensions.x2)
+                modifier = Modifier.padding(BentoDSTheme.dims.x2)
             ) {
                 Column {
                     items.forEach { item ->
@@ -60,7 +60,7 @@ fun MenuHeader(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = BentoDSTheme.colors.bg.secondary)
-            .padding(BentoDSTheme.dimensions.x6),
+            .padding(BentoDSTheme.dims.x6),
         contentAlignment = Alignment.Center,
     ) {
         Text(
@@ -85,7 +85,7 @@ fun MenuItem(
     Box(
         modifier = clickableModifier
             .fillMaxWidth()
-            .padding(BentoDSTheme.dimensions.x3),
+            .padding(BentoDSTheme.dims.x3),
 
         ) {
         Text(

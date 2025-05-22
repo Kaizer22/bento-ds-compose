@@ -35,26 +35,26 @@ fun Chip(
                 shape = BentoDSTheme.shapes.roundShape,
             )
             .padding(
-                horizontal = BentoDSTheme.dimensions.x3,
-                vertical = BentoDSTheme.dimensions.x1
+                horizontal = BentoDSTheme.dims.x3,
+                vertical = BentoDSTheme.dims.x1
             )
     ) {
         leadingIcon?.let {
             Icon(
                 modifier = Modifier.size(
-                    BentoDSTheme.dimensions.x4
+                    BentoDSTheme.dims.x4
                 ),
                 painter = painterResource(id = leadingIcon),
                 contentDescription = null,
             )
         }
-        HSpace(w = BentoDSTheme.dimensions.x1)
+        HSpace(w = BentoDSTheme.dims.x1)
         Text(
             text = label,
             style = BentoDSTheme.typography.labelSmall,
             color = BentoDSTheme.colors.text.primary,
         )
-        HSpace(w = BentoDSTheme.dimensions.x2)
+        HSpace(w = BentoDSTheme.dims.x2)
         trailingButtonIcon?.let {
             BentoDSIconButton(
                 iconRes = trailingButtonIcon,

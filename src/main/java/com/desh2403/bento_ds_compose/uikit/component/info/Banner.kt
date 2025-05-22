@@ -74,7 +74,7 @@ fun BentoDSBanner(
                 shape = BentoDSTheme.shapes.bannerShape,
             )
             .padding(
-                all = BentoDSTheme.dimensions.x4,
+                all = BentoDSTheme.dims.x4,
             ),
         horizontalAlignment = Alignment.End,
     ) {
@@ -88,7 +88,7 @@ fun BentoDSBanner(
                 tint = iconColor,
                 contentDescription = null,
             )
-            HSpace(w = BentoDSTheme.dimensions.x4)
+            HSpace(w = BentoDSTheme.dims.x4)
             Column {
                 title?.let {
                     Text(
@@ -98,7 +98,7 @@ fun BentoDSBanner(
                     )
                 }
                 if (!title.isNullOrBlank() && !description.isNullOrBlank()) {
-                    VSpace(h = BentoDSTheme.dimensions.x1)
+                    VSpace(h = BentoDSTheme.dims.x1)
                 }
                 description?.let {
                     Text(
@@ -107,7 +107,7 @@ fun BentoDSBanner(
                     )
                 }
             }
-            HSpace(w = BentoDSTheme.dimensions.x4)
+            HSpace(w = BentoDSTheme.dims.x4)
             if (isFillMaxWidth) {
                 FSpace()
             }
@@ -122,7 +122,7 @@ fun BentoDSBanner(
             }
         }
         if (action != null && onActionClick != null) {
-            VSpace(h = BentoDSTheme.dimensions.x2)
+            VSpace(h = BentoDSTheme.dims.x2)
             BentoDSButton(
                 text = action,
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
