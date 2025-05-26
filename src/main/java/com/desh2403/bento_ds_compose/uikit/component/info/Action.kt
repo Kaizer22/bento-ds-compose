@@ -11,7 +11,7 @@ import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSButton
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
-import com.desh2403.bento_ds_compose.uikit.component.loading.InlineLoader
+import com.desh2403.bento_ds_compose.uikit.component.loading.BentoDSInlineLoader
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 data class ActionBannerInfo(
@@ -49,7 +49,7 @@ fun Action(
         ) {
             FSpace()
             if (isLoading) {
-                InlineLoader(
+                BentoDSInlineLoader(
                     text = loaderText,
                 )
                 HSpace(w = BentoDSTheme.dims.x4)

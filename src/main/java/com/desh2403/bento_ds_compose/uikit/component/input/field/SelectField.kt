@@ -18,10 +18,10 @@ import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 @Composable
 fun BentoDSSelectField(
     modifier: Modifier = Modifier,
-    selectedVariant: Int,
+    selectedVariant: String,
     variants: List<String>,
     label: String? = null,
-    onSelectVariant: (Int) -> Unit,
+    onSelectVariant: (String) -> Unit,
     state: FieldState = FieldState.ENABLED,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -31,7 +31,7 @@ fun BentoDSSelectField(
     ) {
         BentoDSTextField(
             modifier = modifier.menuAnchor(type = MenuAnchorType.PrimaryNotEditable),
-            value = variants[selectedVariant],
+            value = selectedVariant,
             readOnlyInputField = true,
             state = state,
             label = label,
@@ -46,7 +46,7 @@ fun BentoDSSelectField(
             containerColor = BentoDSTheme.colors.bg.primary,
             shape = BentoDSTheme.shapes.menuShape,
         ) {
-            variants.forEachIndexed { index, variant ->
+            variants.forEach { variant ->
                 DropdownMenuItem(
                     text = {
                         Text(
@@ -55,7 +55,7 @@ fun BentoDSSelectField(
                         )
                     },
                     onClick = {
-                        onSelectVariant.invoke(index)
+                        onSelectVariant.invoke(variant)
                         // only for single selection
                         expanded = false
                     },

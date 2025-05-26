@@ -22,12 +22,14 @@ import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 private const val label = "inline_loader_rotation_angle"
-// TODO InlineLoader
+
 @Composable
-fun InlineLoader(
+fun BentoDSInlineLoader(
+    modifier: Modifier = Modifier,
     text: String? = null,
 ) {
     Row(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         val transition = rememberInfiniteTransition(label = label)
@@ -64,7 +66,7 @@ fun InlineLoader(
 @Composable
 fun InlineLoaderPreview() {
     BentoDSTheme {
-        InlineLoader(
+        BentoDSInlineLoader(
             text = "Loading..."
         )
     }

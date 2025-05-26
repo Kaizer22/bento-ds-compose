@@ -24,7 +24,7 @@ import com.desh2403.bento_ds_compose.uikit.component.input.field.ERROR_STATES
 import com.desh2403.bento_ds_compose.uikit.component.input.field.FieldState
 import com.desh2403.bento_ds_compose.uikit.component.input.field.InputAssistiveText
 import com.desh2403.bento_ds_compose.uikit.component.input.field.InputHeader
-import com.desh2403.bento_ds_compose.uikit.component.loading.InlineLoader
+import com.desh2403.bento_ds_compose.uikit.component.loading.BentoDSInlineLoader
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
 // TODO FileUploader
@@ -79,7 +79,7 @@ fun FileUploader(
             contentAlignment = Alignment.Center,
         ) {
             if (isLoading) {
-                InlineLoader(
+                BentoDSInlineLoader(
                     text = loadingText,
                 )
             } else {

@@ -1,5 +1,6 @@
 package com.desh2403.bento_ds_compose.uikit.component.info
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ fun BentoDSCard(
     paddingValues: PaddingValues = PaddingValues(BentoDSTheme.dims.x6),
     color: Color = BentoDSTheme.colors.bg.primary,
     onClick: (() -> Unit)? = null,
+    interactionSource: MutableInteractionSource? = MutableInteractionSource(),
     content: @Composable () -> Unit,
 ) {
     Box(modifier = Modifier.padding(BentoDSTheme.dims.x3)) {
@@ -28,7 +30,8 @@ fun BentoDSCard(
             onClick = onClick ?: {},
             colors = CardDefaults.cardColors(
                 containerColor = color,
-            )
+            ),
+            interactionSource = interactionSource,
         ) {
             Box(modifier = Modifier.padding(paddingValues)) {
                 content.invoke()

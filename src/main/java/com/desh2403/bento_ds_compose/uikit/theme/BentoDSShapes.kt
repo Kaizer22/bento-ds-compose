@@ -6,12 +6,7 @@ import androidx.compose.ui.unit.dp
 
 data class BentoDSShapes(
     val progressBarBgShape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    val progressBarFgShape: RoundedCornerShape = RoundedCornerShape(
-        topStart = 8.dp,
-        bottomStart = 8.dp,
-        topEnd = 0.dp,
-        bottomEnd = 0.dp,
-    ),
+    val progressBarFgShape: RoundedCornerShape = RoundedCornerShape(8.dp),
     val bannerShape: RoundedCornerShape = RoundedCornerShape(16.dp),
     val toastShape: RoundedCornerShape = RoundedCornerShape(16.dp),
     val buttonShape: RoundedCornerShape = RoundedCornerShape(16.dp),
@@ -24,6 +19,10 @@ data class BentoDSShapes(
 
     val roundShape: RoundedCornerShape = RoundedCornerShape(percent = 50),
     val noRoundedCornersShape: RoundedCornerShape = RoundedCornerShape(0.dp),
+    val bottomBarShape: RoundedCornerShape = RoundedCornerShape(
+        topStart = 24.dp,
+        topEnd = 24.dp,
+    )
 )
 
 internal val LocalBentoDSShapes = staticCompositionLocalOf { BentoDSShapes() }
