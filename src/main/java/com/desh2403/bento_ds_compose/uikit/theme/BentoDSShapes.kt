@@ -4,19 +4,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.dp
 
+private val sh8dpRC = RoundedCornerShape(8.dp)
+private val sh16dpRc = RoundedCornerShape(16.dp)
+private val sh24dpRc = RoundedCornerShape(24.dp)
+
 data class BentoDSShapes(
-    val progressBarBgShape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    val progressBarFgShape: RoundedCornerShape = RoundedCornerShape(8.dp),
-    val bannerShape: RoundedCornerShape = RoundedCornerShape(16.dp),
-    val toastShape: RoundedCornerShape = RoundedCornerShape(16.dp),
-    val buttonShape: RoundedCornerShape = RoundedCornerShape(16.dp),
-    val cardShape: RoundedCornerShape = RoundedCornerShape(24.dp),
-    val menuShape: RoundedCornerShape = RoundedCornerShape(24.dp),
+    val progressBarBgShape: RoundedCornerShape = sh8dpRC,
+    val progressBarFgShape: RoundedCornerShape = sh8dpRC,
+    val bannerShape: RoundedCornerShape = sh16dpRc,
+    val toastShape: RoundedCornerShape = sh16dpRc,
+    val buttonShape: RoundedCornerShape = sh16dpRc,
+    val cardShape: RoundedCornerShape = sh24dpRc,
+    val menuShape: RoundedCornerShape = sh24dpRc,
     val bottomSheetModalShape: RoundedCornerShape = RoundedCornerShape(
         topStart = 40.dp,
         topEnd = 40.dp,
     ),
-
+    val folderTabShape: RoundedCornerShape = RoundedCornerShape(
+        topStart = 16.dp,
+        topEnd = 16.dp,
+    ),
     val roundShape: RoundedCornerShape = RoundedCornerShape(percent = 50),
     val noRoundedCornersShape: RoundedCornerShape = RoundedCornerShape(0.dp),
     val bottomBarShape: RoundedCornerShape = RoundedCornerShape(

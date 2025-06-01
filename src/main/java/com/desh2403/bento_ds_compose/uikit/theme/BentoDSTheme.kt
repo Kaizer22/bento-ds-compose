@@ -16,7 +16,6 @@ fun BentoDSTheme(
 ) {
     val colors = if (darkMode) paDarkColors() else paLightColors()
 
-
     val materialDarkColorPalette = darkColorScheme()
     val materialColorPalette = lightColorScheme()
 
