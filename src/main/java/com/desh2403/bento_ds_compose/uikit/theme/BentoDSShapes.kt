@@ -29,6 +29,16 @@ data class BentoDSShapes(
     val bottomBarShape: RoundedCornerShape = RoundedCornerShape(
         topStart = 24.dp,
         topEnd = 24.dp,
+    ),
+    val currentUserMessage: RoundedCornerShape = RoundedCornerShape(
+        topStart = 16.dp,
+        topEnd = 16.dp,
+        bottomStart = 16.dp,
+    ),
+    val otherUserMessage: RoundedCornerShape = RoundedCornerShape(
+        topStart = 16.dp,
+        topEnd = 16.dp,
+        bottomEnd = 16.dp,
     )
 )
 

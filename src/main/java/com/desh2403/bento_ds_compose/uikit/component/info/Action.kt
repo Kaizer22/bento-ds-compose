@@ -56,7 +56,7 @@ fun Action(
             }
             BentoDSButton(
                 text = cancelButtonText,
-                isEnabled = !isLoading,
+                enabled = !isLoading,
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
                 onClick = onCancelClick,
             )
@@ -65,7 +65,7 @@ fun Action(
                 text = actionButtonText,
                 buttonSize = buttonSize,
                 buttonType = actionButtonType,
-                isEnabled = !isLoading,
+                enabled = !isLoading,
                 onClick = onActionClick,
             )
         }

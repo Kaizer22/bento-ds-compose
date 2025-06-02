@@ -18,7 +18,8 @@ fun BentoDSIconButton(
     onClick: () -> Unit,
     buttonType: ButtonType = ButtonType.PRIMARY_SOLID,
     size: IconSize = IconSize.L,
-    isNeedPadding: Boolean = true,
+    needPadding: Boolean = true,
+    enabled: Boolean = true,
     iconTint: Color? = null,
 ) {
     val buttonSize = when (size) {
@@ -39,9 +40,10 @@ fun BentoDSIconButton(
         buttonSize = buttonSize,
         buttonIconSize = size,
         buttonType = buttonType,
-        isGotPadding = isNeedPadding,
+        needPadding = needPadding,
         paddingValues = PaddingValues(paddings),
         iconsTint = iconTint,
+        enabled = enabled,
     )
 }
 

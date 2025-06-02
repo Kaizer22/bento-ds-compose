@@ -81,7 +81,7 @@ fun Toast(
                 HSpace(w = BentoDSTheme.dims.x4)
                 BentoDSIconButton(
                     buttonType = ButtonType.SECONDARY_TRANSPARENT,
-                    isNeedPadding = false,
+                    needPadding = false,
                     iconRes = R.drawable.ic_x,
                     size = IconSize.L,
                     onClick = onClose,

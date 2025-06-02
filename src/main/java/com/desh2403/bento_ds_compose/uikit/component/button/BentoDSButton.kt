@@ -61,12 +61,12 @@ private const val OUTLINED_BUTTON_BORDER_WIDTH = 1
 @Composable
 fun BentoDSButton(
     modifier: Modifier = Modifier,
-    isGotPadding: Boolean = true,
-    isFillMaxWidth: Boolean = false,
+    needPadding: Boolean = true,
+    fillMaxWidth: Boolean = false,
     buttonType: ButtonType = ButtonType.PRIMARY_SOLID,
     buttonSize: ButtonSize = ButtonSize.M,
     buttonIconSize: IconSize = IconSize.L,
-    isEnabled: Boolean = true,
+    enabled: Boolean = true,
     text: String? = null,
     @DrawableRes leadingIcon: Int? = null,
     @DrawableRes trailingIcon: Int? = null,
@@ -74,7 +74,7 @@ fun BentoDSButton(
     onClick: () -> Unit,
     paddingValues: PaddingValues? = null
 ) {
-    val paddings = if (!isGotPadding)
+    val paddings = if (!needPadding)
         PaddingValues(BentoDSTheme.dims.x0)
     else
         paddingValues ?: PaddingValues(
@@ -99,7 +99,7 @@ fun BentoDSButton(
     CompositionLocalProvider(
         LocalMinimumInteractiveComponentEnforcement provides false,
     ) {
-        val isFillModifier = if (isFillMaxWidth) modifier.fillMaxWidth() else modifier
+        val isFillModifier = if (fillMaxWidth) modifier.fillMaxWidth() else modifier
 
         var contentColor by remember {
             mutableStateOf(
@@ -134,7 +134,7 @@ fun BentoDSButton(
                     }
                     true
                 },
-            enabled = isEnabled,
+            enabled = enabled,
             onClick = onClick,
             contentPadding = paddings,
             border = borderStroke,
@@ -235,30 +235,30 @@ fun ButtonsPreview() {
                 VSpace(h = 8.dp)
             }
             BentoDSButton(
-                isEnabled = false,
+                enabled = false,
                 text = "Button",
                 leadingIcon = R.drawable.ic_placeholder,
                 trailingIcon = R.drawable.ic_placeholder,
                 onClick = {},
-                isFillMaxWidth = true,
+                fillMaxWidth = true,
             )
             BentoDSButton(
                 buttonType = ButtonType.NEGATIVE_OUTLINED,
-                isEnabled = false,
+                enabled = false,
                 text = "Button",
                 leadingIcon = R.drawable.ic_placeholder,
                 trailingIcon = R.drawable.ic_placeholder,
                 onClick = {},
-                isFillMaxWidth = true,
+                fillMaxWidth = true,
             )
             BentoDSButton(
                 buttonType = ButtonType.NEGATIVE_TRANSPARENT,
-                isEnabled = false,
+                enabled = false,
                 text = "Button",
                 leadingIcon = R.drawable.ic_placeholder,
                 trailingIcon = R.drawable.ic_placeholder,
                 onClick = {},
-                isFillMaxWidth = true,
+                fillMaxWidth = true,
             )
         }
     }

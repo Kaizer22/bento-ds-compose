@@ -60,7 +60,7 @@ fun Chip(
                 iconRes = trailingButtonIcon,
                 size = IconSize.L,
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
-                isNeedPadding = false,
+                needPadding = false,
                 onClick = onTrailingButtonClick ?: {},
             )
         }

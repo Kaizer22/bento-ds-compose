@@ -40,7 +40,7 @@ fun InputHeader(
             BentoDSIconButton(
                 iconRes = R.drawable.ic_question_circle,
                 size = IconSize.M,
-                isNeedPadding = false,
+                needPadding = false,
                 iconTint = infoIconTint,
                 buttonType = ButtonType.PRIMARY_TRANSPARENT,
                 // TODO

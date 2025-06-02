@@ -117,7 +117,7 @@ fun BentoDSBanner(
                     buttonType = ButtonType.SECONDARY_TRANSPARENT,
                     iconRes = R.drawable.ic_x,
                     onClick = onCloseClick,
-                    isNeedPadding = false,
+                    needPadding = false,
                 )
             }
         }
