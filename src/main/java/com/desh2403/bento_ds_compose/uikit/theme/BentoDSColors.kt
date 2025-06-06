@@ -209,7 +209,7 @@ data class BentoDSPalette(
 
 data class BrandPalette(
     // region Brand
-    val primary: Color = bento_violet_40,
+    val primary: Color,
     val secondary: Color = bento_violet_20,
     val tertiary: Color = bento_violet_10,
     // endregion
@@ -222,14 +222,10 @@ data class BgPalette(
     val overlay: Color = neutral_20.copy(alpha = 0.4f),
     val interactive: Color = bento_violet_40,
     val interactiveOverlay: Color = bento_violet_10.copy(alpha = 0.4f),
-    // TODO inverse
-    val informative: Color = informative_5,
-    // TODO inverse
-    val positive: Color = positive_5,
-    // TODO inverse
-    val warning: Color = warning_5,
-    // TODO inverse
-    val negative: Color = negative_5,
+    val informative: Color,// = informative_5,
+    val positive: Color,// = positive_5,
+    val warning: Color,// = warning_5,
+    val negative: Color,// = negative_5,
     val scrim: Color,
     // endregion
 )
@@ -252,6 +248,8 @@ data class TextPalette(
     // region Text
     val primary: Color,
     val primaryInverse: Color,
+    val primaryStaticLight: Color = neutral_1,
+    val primaryStaticDark: Color = neutral_90,
     val secondary: Color,
     val interactive: Color = bento_violet_40,
     val informative: Color = informative_50,
@@ -342,24 +340,6 @@ data class InteractivePalette(
     val outlineFocus: Color,
 )
 
-private val primaryInteractivePalette = InteractivePalette(
-    solidEnabledBg = bento_violet_40,
-    solidEnabledFg = white,
-    solidHoverBg = bento_violet_60,
-    solidHoverFg = white,
-    solidFocusBg = bento_violet_60,
-    solidFocusFg = white,
-    transparentEnabledBg = transparent,
-    transparentEnabledFg = bento_violet_40,
-    transparentHoverBg = bento_violet_10.copy(alpha = 0.4f),
-    transparentHoverFg = bento_violet_50,
-    transparentFocusBg = bento_violet_10.copy(alpha = 0.4f),
-    transparentFocusFg = bento_violet_50,
-    outlineEnabled = bento_violet_40,
-    outlineHover = bento_violet_50,
-    outlineFocus = bento_violet_50,
-)
-
 private val positiveInteractivePalette = InteractivePalette(
     solidEnabledBg = positive_40,
     solidEnabledFg = white,
@@ -423,31 +403,19 @@ private val warningInteractivePalette = InteractivePalette(
     outlineFocus = warning_60,
 )
 
-private val secondaryInteractivePalette = InteractivePalette(
-    solidEnabledBg = neutral_5,
-    solidEnabledFg = neutral_90,
-    solidHoverBg = neutral_20,
-    solidHoverFg = neutral_90,
-    solidFocusBg = neutral_20,
-    solidFocusFg = neutral_90,
-    transparentEnabledBg = transparent,
-    transparentEnabledFg = neutral_80,// neutral_80 / neutral_5,
-    transparentHoverBg = neutral_20.copy(alpha = 0.4f),
-    transparentHoverFg = black,
-    transparentFocusBg = neutral_20.copy(alpha = 0.4f),
-    transparentFocusFg = black,
-    outlineEnabled = neutral_80, // neutral_80 / neutral_5,
-    outlineHover = black,
-    outlineFocus = black,
-)
-
 @Composable
 fun paLightColors() = BentoDSPalette(
-    brand = BrandPalette(),
+    brand = BrandPalette(
+        primary = bento_violet_40,
+    ),
     bg = BgPalette(
         primary = white,
         secondary = neutral_1,
         scrim = white.copy(alpha = 0.8f),
+        informative = informative_5,
+        positive = positive_5,
+        warning = warning_5,
+        negative = negative_5,
     ),
     fg = FgPalette(
         primary = neutral_90,
@@ -464,8 +432,40 @@ fun paLightColors() = BentoDSPalette(
         focus = bento_violet_60,
         disabled = neutral_40.copy(alpha = 0.3f),
     ),
-    primary = primaryInteractivePalette,
-    secondary = secondaryInteractivePalette,
+    primary = InteractivePalette(
+        solidEnabledBg = bento_violet_40,
+        solidEnabledFg = white,
+        solidHoverBg = bento_violet_60,
+        solidHoverFg = white,
+        solidFocusBg = bento_violet_60,
+        solidFocusFg = white,
+        transparentEnabledBg = transparent,
+        transparentEnabledFg = bento_violet_40,
+        transparentHoverBg = bento_violet_10.copy(alpha = 0.4f),
+        transparentHoverFg = bento_violet_50,
+        transparentFocusBg = bento_violet_10.copy(alpha = 0.4f),
+        transparentFocusFg = bento_violet_50,
+        outlineEnabled = bento_violet_40,
+        outlineHover = bento_violet_50,
+        outlineFocus = bento_violet_50,
+    ),
+    secondary = InteractivePalette(
+        solidEnabledBg = neutral_5,
+        solidEnabledFg = neutral_90,
+        solidHoverBg = neutral_20,
+        solidHoverFg = neutral_90,
+        solidFocusBg = neutral_20,
+        solidFocusFg = neutral_90,
+        transparentEnabledBg = transparent,
+        transparentEnabledFg = neutral_80,// neutral_80 / neutral_5,
+        transparentHoverBg = neutral_20.copy(alpha = 0.4f),
+        transparentHoverFg = black,
+        transparentFocusBg = neutral_20.copy(alpha = 0.4f),
+        transparentFocusFg = black,
+        outlineEnabled = neutral_80, // neutral_80 / neutral_5,
+        outlineHover = black,
+        outlineFocus = black,
+    ),
     warning = warningInteractivePalette,
     danger = dangerInteractivePalette,
     positive = positiveInteractivePalette,
@@ -476,11 +476,17 @@ fun paLightColors() = BentoDSPalette(
 
 @Composable
 fun paDarkColors() = BentoDSPalette(
-    brand = BrandPalette(),
+    brand = BrandPalette(
+        primary = bento_violet_90,
+    ),
     bg  = BgPalette(
         primary = neutral_90,
         secondary = neutral_80,
         scrim = neutral_90.copy(alpha = 0.6f),
+        informative = informative_90,
+        positive = positive_80,
+        negative = negative_80,
+        warning = warning_80,
     ),
     fg = FgPalette(
         primary = neutral_1,
@@ -491,11 +497,40 @@ fun paDarkColors() = BentoDSPalette(
         primaryInverse = neutral_90,
         secondary = neutral_30,
     ),
-    secondary = secondaryInteractivePalette.copy(
-        transparentEnabledFg = neutral_5,
-        outlineEnabled = neutral_5,
+    secondary = InteractivePalette(
+        solidEnabledBg = neutral_80,
+        solidEnabledFg = neutral_5,
+        solidHoverBg = neutral_60,
+        solidHoverFg = neutral_5,
+        solidFocusBg = neutral_60,
+        solidFocusFg = neutral_5,
+        transparentEnabledBg = transparent,
+        transparentEnabledFg = neutral_5,// neutral_80 / neutral_5,
+        transparentHoverBg = neutral_60.copy(alpha = 0.4f),
+        transparentHoverFg = white,
+        transparentFocusBg = neutral_60.copy(alpha = 0.4f),
+        transparentFocusFg = white,
+        outlineEnabled = neutral_5, // neutral_80 / neutral_5,
+        outlineHover = white,
+        outlineFocus = white,
     ),
-    primary = primaryInteractivePalette,
+    primary = InteractivePalette(
+        solidEnabledBg = bento_violet_60,
+        solidEnabledFg = white,
+        solidHoverBg = bento_violet_30,
+        solidHoverFg = white,
+        solidFocusBg = bento_violet_30,
+        solidFocusFg = white,
+        transparentEnabledBg = transparent,
+        transparentEnabledFg = bento_violet_30,
+        transparentHoverBg = bento_violet_70.copy(alpha = 0.4f),
+        transparentHoverFg = bento_violet_40,
+        transparentFocusBg = bento_violet_70.copy(alpha = 0.4f),
+        transparentFocusFg = bento_violet_40,
+        outlineEnabled = bento_violet_30,
+        outlineHover = bento_violet_40,
+        outlineFocus = bento_violet_40,
+    ),
     link = LinkPalette(
         enabled = bento_violet_10,
         hover = bento_violet_5,
