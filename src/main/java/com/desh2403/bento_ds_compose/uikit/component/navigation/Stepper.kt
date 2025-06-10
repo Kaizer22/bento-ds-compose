@@ -7,9 +7,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,11 +35,16 @@ fun Stepper(
     currentStep: Int,
     @DrawableRes doneIcon: Int = R.drawable.ic_positive_solid,
 ) {
-    Row(
-        modifier = modifier.horizontalScroll(rememberScrollState()),
+    val scrollState = rememberLazyListState()
+    LaunchedEffect(currentStep) {
+        scrollState.scrollToItem(currentStep)
+    }
+    LazyRow(
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
+        state = scrollState
     ) {
-        steps.forEachIndexed { index, step ->
+        itemsIndexed(steps) { index, step ->
             val state = when {
                 currentStep == index -> StepState.IN_PROGRESS
                 currentStep > index -> StepState.DONE
@@ -133,7 +142,7 @@ private fun StepIcon(
             ) {
                 Text(
                     text = number.toString(),
-                    color = BentoDSTheme.colors.text.primaryInverse,
+                    color = BentoDSTheme.colors.text.primaryStaticLight,
                     style = BentoDSTheme.typography.labelLarge,
                 )
             }
