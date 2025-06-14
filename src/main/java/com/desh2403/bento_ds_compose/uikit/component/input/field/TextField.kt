@@ -23,6 +23,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.R
@@ -89,6 +90,7 @@ fun BentoDSTextField(
     infoMessage: String? = null,
     displayUnit: String? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     maxLinesCount: Int = DEFAULT_MAX_LINES_COUNT,
     state: FieldState = FieldState.ENABLED,
     readOnlyInputField: Boolean = false,
@@ -118,6 +120,7 @@ fun BentoDSTextField(
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
         ),
+        visualTransformation = visualTransformation,
         readOnly = readOnlyInputField,
         maxLines = maxLinesCount,
         minLines = maxLinesCount,
