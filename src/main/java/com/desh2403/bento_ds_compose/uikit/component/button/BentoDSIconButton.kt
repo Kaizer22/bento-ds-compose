@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,7 +53,7 @@ fun BentoDSIconButton(
 @Composable
 fun IconButtonPrimarySolidPreview() {
     BentoDSTheme {
-        Row {
+        Row(verticalAlignment = Alignment.Bottom) {
             BentoDSIconButton(
                 iconRes = R.drawable.ic_chevron_down,
                 onClick = {}
