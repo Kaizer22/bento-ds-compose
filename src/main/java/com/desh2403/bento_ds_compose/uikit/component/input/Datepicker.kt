@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.R
@@ -32,13 +33,14 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
-fun Datepicker(
+fun BentoDSDatepicker(
     year: Int,
     month: Int,
     dayOfMonth: Int,
     // month 0-11
     onSelectDay: (dayOfMonth: Int, month: Int, year: Int) -> Unit,
-    showPresetsButtons : Boolean = false,
+    weekDayProvider: ((dayOfWeek: Int) -> String)? = null,
+    showPresetsButtons: Boolean = false,
 ) {
     var selectedDay by remember { mutableIntStateOf(dayOfMonth) }
 
@@ -70,7 +72,7 @@ fun Datepicker(
                     shownYear = newYear
                 }
             )
-            // TODO дни недели
+            DaysOfWeekRow(weekDayProvider)
             var i = 0
             var weekStart = 1
             while (weekStart <= shownMonthDaysCount) {
@@ -87,7 +89,6 @@ fun Datepicker(
             }
 
             if (showPresetsButtons) {
-
                 DatepickerPresetsButtons(
                     onThisMonthPressed = {},
                     onThisWeekPressed = {},
@@ -95,6 +96,50 @@ fun Datepicker(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun DaysOfWeekRow(
+    weekDayProvider: ((dayOfWeek: Int) -> String)?,
+) {
+    Row {
+        (0 until 7).forEach { index ->
+            DayOfWeekTitle(
+                text = weekDayProvider?.invoke(index) ?:
+                when(index) {
+                    0 -> "M"
+                    1 -> "T"
+                    2 -> "W"
+                    3 -> "T"
+                    4 -> "F"
+                    5 -> "S"
+                    6 -> "S"
+                    else -> ""
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun DayOfWeekTitle(
+    text: String,
+) {
+    Box(
+        modifier = Modifier
+            .size(44.dp)
+            .background(
+                color = Color.Transparent,
+                shape = BentoDSTheme.shapes.buttonShape,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(
+            text = text,
+            color = BentoDSTheme.colors.text.secondary,
+            style = BentoDSTheme.typography.labelLarge,
+        )
     }
 }
 
@@ -235,7 +280,8 @@ fun DatepickerHeader(
     }
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween) {
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         BentoDSIconButton(
             iconRes = R.drawable.ic_chevron_left,
             buttonType = ButtonType.SECONDARY_TRANSPARENT,
@@ -269,7 +315,7 @@ fun DatepickerHeader(
 @Composable
 fun DatepickerPreview() {
     BentoDSTheme {
-        Datepicker(
+        BentoDSDatepicker(
             year = 2024,
             month = 0,
             dayOfMonth = 0,

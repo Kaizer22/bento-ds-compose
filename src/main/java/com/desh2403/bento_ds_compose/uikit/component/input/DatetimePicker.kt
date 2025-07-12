@@ -15,7 +15,7 @@ fun DatetimePicker(
     var selectedDateTime by remember { mutableStateOf(LocalDateTime.now()) }
 
     Column {
-        Datepicker(
+        BentoDSDatepicker(
             year = selectedDateTime.year,
             month = selectedDateTime.month.value,
             dayOfMonth = selectedDateTime.dayOfMonth,
