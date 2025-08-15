@@ -6,18 +6,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.R
@@ -26,7 +27,9 @@ import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonSize
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.component.info.BentoDSCard
+import com.desh2403.bento_ds_compose.uikit.component.info.CalendarDayBackground
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
+import com.desh2403.bento_ds_compose.uikit.utils.rememberNoRippleInteractionSource
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.format.TextStyle
@@ -62,7 +65,9 @@ fun BentoDSDatepicker(
         selectedDay = newDay
         onSelectDay(selectedDay, shownMonth, shownYear)
     }
-    BentoDSCard {
+    BentoDSCard(
+        interactionSource = rememberNoRippleInteractionSource()
+    ) {
         Column {
             DatepickerHeader(
                 year = shownYear,
@@ -81,8 +86,18 @@ fun BentoDSDatepicker(
                     startDayOfWeek = if (i == 0) shownMonthFirstDayOfWeek else 0,
                     endDayOfWeek = if (shownMonthDaysCount - weekStart > 6) 6
                     else shownMonthDaysCount - weekStart,
-                    selectedDay = selectedDay,
-                    onSelectDay = onSelectDayOfWeek,
+                    dayContent = { day ->
+                        val isSelected = day == selectedDay && year == shownYear
+                                && month == shownMonth
+                        DatePickerDay(
+                            number = day,
+                            textColor = if (isSelected)
+                                BentoDSTheme.colors.primary.solidEnabledFg
+                            else BentoDSTheme.colors.text.primary,
+                            onClick = { onSelectDayOfWeek.invoke(day) },
+                            dayBackground = DatepickerDayBackground(isSelected)
+                        )
+                    }
                 )
                 weekStart += if (i == 0) 7 - shownMonthFirstDayOfWeek else 7
                 i++
@@ -90,10 +105,38 @@ fun BentoDSDatepicker(
 
             if (showPresetsButtons) {
                 DatepickerPresetsButtons(
-                    onThisMonthPressed = {},
+                    onThisMonthPressed = {
+                        val currentDatetime = LocalDateTime.now()
+                        shownYear = currentDatetime.year
+                        shownMonth = currentDatetime.monthValue
+                    },
                     onThisWeekPressed = {},
-                    onThisYearPressed = {},
+                    onThisYearPressed = {
+                        shownYear = LocalDateTime.now().year
+                    },
                 )
+            }
+        }
+    }
+}
+
+data class DatepickerDayBackground(
+    val isSelected: Boolean,
+): CalendarDayBackground {
+    @Composable
+    override fun Composable() {
+        Box {
+            if (isSelected) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = BentoDSTheme.colors.fg.interactive,
+                            shape = BentoDSTheme.shapes.buttonShape,
+                        )
+                ) {
+                    Text("")
+                }
             }
         }
     }
@@ -106,8 +149,7 @@ fun DaysOfWeekRow(
     Row {
         (0 until 7).forEach { index ->
             DayOfWeekTitle(
-                text = weekDayProvider?.invoke(index) ?:
-                when(index) {
+                text = weekDayProvider?.invoke(index) ?: when (index) {
                     0 -> "M"
                     1 -> "T"
                     2 -> "W"
@@ -151,83 +193,84 @@ fun DatepickerPresetsButtons(
     onThisYearPressed: () -> Unit,
 ) {
     Row {
-        BentoDSButton(
-            text = "This week",
-            buttonType = ButtonType.SECONDARY_TRANSPARENT,
-            buttonSize = ButtonSize.S,
-            onClick = onThisWeekPressed,
-        )
+//        BentoDSButton(
+//            text = "This week",
+//            buttonType = ButtonType.SECONDARY_TRANSPARENT,
+//            buttonSize = ButtonSize.S,
+//            onClick = onThisWeekPressed,
+//        )
         BentoDSButton(
             text = "This month",
             buttonType = ButtonType.SECONDARY_TRANSPARENT,
             buttonSize = ButtonSize.S,
-            onClick = onThisWeekPressed,
+            onClick = onThisMonthPressed,
         )
         BentoDSButton(
             text = "This year",
             buttonType = ButtonType.SECONDARY_TRANSPARENT,
             buttonSize = ButtonSize.S,
-            onClick = onThisWeekPressed,
+            onClick = onThisYearPressed,
         )
     }
 }
 
 @Composable
 fun DatepickerWeek(
+    // 0-30
     startDay: Int,
+    // 0-6
     startDayOfWeek: Int,
+    // 0-6
     endDayOfWeek: Int,
-    selectedDay: Int? = null,
-    onSelectDay: (Int) -> Unit,
+    dayContent: @Composable (dayOfWeek: Int) -> Unit,
 ) {
     Row {
         var day = startDay
         (0 until 7).forEach { dayNum ->
             val inRange = dayNum in startDayOfWeek..endDayOfWeek
-            DatePickerDay(
-                number = if (inRange) day else null,
-                isSelected = inRange && day == selectedDay,
-                //isWeekend = dayNum == 6 || dayNum == 5,
-                onClick = { number -> if (inRange) onSelectDay(number) }
-            )
-            if (inRange) day++
+            if (inRange) {
+                dayContent.invoke(day)
+                day++
+            } else {
+                EmptyDayBox()
+            }
         }
     }
 }
 
 @Composable
-fun DatePickerDay(
-    number: Int? = null,
-    isToday: Boolean = false,
-    isSelected: Boolean,
-    //isWeekend: Boolean,
-    onClick: (Int) -> Unit,
-) {
+fun EmptyDayBox() {
     Box(
         modifier = Modifier
             .size(44.dp)
             .background(
-                color = when {
-                    isSelected -> BentoDSTheme.colors.fg.interactive
-                    //isWeekend -> Color.LightGray
-                    else -> Color.Transparent
-                },
+                color = Color.Transparent,
                 shape = BentoDSTheme.shapes.buttonShape,
-            ) // TODO hover color
+            ),
+        contentAlignment = Alignment.Center,
+    ) { Text(text = "") }
+}
+
+@Composable
+fun DatePickerDay(
+    number: Int? = null,
+    textColor: Color = BentoDSTheme.colors.text.primary,
+    //isSelected: Boolean,
+    onClick: (Int) -> Unit,
+    dayBackground: CalendarDayBackground? = null,
+) {
+    Box(
+        modifier = Modifier
+            .size(44.dp)
             .clickable(onClick = { number?.let { onClick(it) } }),
         contentAlignment = Alignment.Center,
     ) {
         number?.let {
+            dayBackground?.Composable()
             Text(
                 text = number.toString(),
-                color = if (isSelected)
-                    BentoDSTheme.colors.primary.solidEnabledFg else
-                    BentoDSTheme.colors.text.primary,
-                style = if (isToday) {
-                    BentoDSTheme.typography.bodyMediumStrong
-                } else {
-                    BentoDSTheme.typography.bodyMedium
-                }
+                color = textColor,
+                style = BentoDSTheme.typography.bodyMedium,
             )
         }
     }
@@ -243,13 +286,15 @@ fun DatepickerHeader(
     month: Int,
     // month 0-11
     onChangeDate: (month: Int, year: Int) -> Unit,
+    locale: String = Locale.getDefault().language,
 ) {
     var selectedYear by remember { mutableIntStateOf(year) }
     var selectedMonth by remember { mutableIntStateOf(month) }
     val monthItems = remember {
         (1..12).map {
             Month.of(it).getDisplayName(
-                TextStyle.FULL_STANDALONE, Locale.forLanguageTag("ru")
+                TextStyle.FULL_STANDALONE,
+                Locale.forLanguageTag(locale),
             )
         }
     }
@@ -315,11 +360,18 @@ fun DatepickerHeader(
 @Composable
 fun DatepickerPreview() {
     BentoDSTheme {
+        var selectedYear by remember { mutableStateOf(2025) }
+        var selectedMonth by remember { mutableStateOf(6) }
+        var selectedDayOfMonth by remember { mutableStateOf(14) }
         BentoDSDatepicker(
-            year = 2024,
-            month = 0,
-            dayOfMonth = 0,
-            onSelectDay = { _, _, _ -> },
+            year = selectedYear,
+            month = selectedMonth,
+            dayOfMonth = selectedDayOfMonth,
+            onSelectDay = { dayOfMonth, month, year ->
+                selectedYear = year
+                selectedMonth = month
+                selectedDayOfMonth = dayOfMonth
+            },
             showPresetsButtons = true,
         )
     }

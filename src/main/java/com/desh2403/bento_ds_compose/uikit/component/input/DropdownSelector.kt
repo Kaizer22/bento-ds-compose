@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,12 +28,14 @@ fun DropdownSelector(
             Text(text = items[selectedItem], modifier = Modifier.clickable { expanded = true })
             DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
                 items.forEachIndexed { index, item ->
-//                    DropdownMenuItem(onClick = {
-//                        expanded = false
-//                        onItemSelected(index)
-//                    }) {
-//                        Text(item)
-//                    }
+                    DropdownMenuItem(
+                        text = {
+                            Text(item)
+                        },
+                        onClick = {
+                            expanded = false
+                            onItemSelected(index)
+                        })
                 }
             }
         }
