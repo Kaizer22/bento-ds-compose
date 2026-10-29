@@ -1,0 +1,52 @@
+package com.desh2403.bento_ds_compose.uikit.component.input.field
+
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import com.desh2403.bento_ds_compose.uikit.R
+import com.desh2403.bento_ds_compose.uikit.component.HSpace
+import com.desh2403.bento_ds_compose.uikit.component.VSpace
+import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
+
+/**
+ * Text under an input field; with [isError] it gets an error icon and the negative color.
+ * Bento DS `assistiveText` and `issues` of the form fields.
+ *
+ * @param assistiveText the text.
+ * @param errorIconTint tint of the error icon.
+ * @param isError shows the text as an error.
+ */
+@Composable
+fun InputAssistiveText(
+    assistiveText: String?,
+    errorIconTint: Color,
+    isError: Boolean,
+) {
+    if (isError || assistiveText != null) {
+        VSpace(h = BentoDSTheme.dims.x1 + BentoDSTheme.dims.x0_5)
+        Row {
+            if (isError) {
+                Icon(
+                    modifier = Modifier.size(
+                        BentoDSTheme.dims.x4
+                    ),
+                    tint = errorIconTint,
+                    painter = painterResource(id = R.drawable.ic_negative_solid),
+                    contentDescription = null,
+                )
+                HSpace(w = BentoDSTheme.dims.x1)
+            }
+            Text(
+                text = assistiveText.orEmpty(),
+                style = BentoDSTheme.typography.bodySmall,
+                color = if (isError) BentoDSTheme.colors.text.negative
+                else BentoDSTheme.colors.text.secondary
+            )
+        }
+    }
+}

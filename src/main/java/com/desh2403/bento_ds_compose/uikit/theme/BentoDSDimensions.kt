@@ -1,0 +1,41 @@
+package com.desh2403.bento_ds_compose.uikit.theme
+
+import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+
+/**
+ * Spacing scale on a 4 dp grid: `xN` equals `N * 4.dp` (`x0_25` = 1 dp, `x0_5` = 2 dp),
+ * plus the elevation levels of Bento DS surfaces.
+ *
+ * Bento DS: [Layout](https://developer.bento-ds.com/Guides/layout)
+ */
+data class BentoDSDimensions(
+    val x0 : Dp = 0.dp,
+    val x0_25: Dp = 1.dp,
+    val x0_5: Dp = 2.dp,
+    val x1 : Dp = 4.dp,
+    val x2 : Dp = 8.dp,
+    val x3 : Dp = 12.dp,
+    val x4 : Dp = 16.dp,
+    val x5 : Dp = 20.dp,
+    val x6 : Dp = 24.dp,
+    val x8 : Dp = 32.dp,
+    val x10 : Dp = 40.dp,
+    val x12 : Dp = 48.dp,
+    val x14 : Dp = 56.dp,
+    val x15 : Dp = 60.dp,
+    val x18 : Dp = 72.dp,
+    val x20 : Dp = 80.dp,
+    val x30 : Dp = 120.dp,
+    val x40 : Dp = 160.dp,
+    val x50 : Dp = 200.dp,
+    val x60 : Dp = 240.dp,
+
+    val elevationNone : Dp = x0,
+    val elevationSmall : Dp = x2,
+    val elevationMedium : Dp = x4,
+    val elevationLarge : Dp = x8,
+)
+
+internal val LocalBentoDSDimensions = staticCompositionLocalOf { BentoDSDimensions() }
