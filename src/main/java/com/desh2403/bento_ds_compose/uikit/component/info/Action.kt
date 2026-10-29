@@ -14,12 +14,40 @@ import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.component.loading.BentoDSInlineLoader
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/**
+ * Banner shown above the buttons of an [Action].
+ *
+ * @param bannerType status of the banner.
+ * @param bannerText text of the banner.
+ * @param isFillMaxWidth whether the banner takes the full width. Bento DS `errorBannerWidth = "fill"`.
+ */
 data class ActionBannerInfo(
     val bannerType: BentoDSBannerType,
     val bannerText: String,
     val isFillMaxWidth: Boolean,
 )
 
+/**
+ * Group of a secondary (cancel) and a primary action, aligned to the end, with an optional banner
+ * above and an inline loader while the action is in progress.
+ *
+ * Bento DS: [Actions](https://developer.bento-ds.com/Components/Actions)
+ *
+ * Differences from Bento DS:
+ * - the secondary action is required;
+ * - [banner] accepts any [BentoDSBannerType], while Bento DS shows only an error banner;
+ * - the primary action style is set by [actionButtonType] instead of `isDestructive`.
+ *
+ * @param banner banner above the buttons. Bento DS `error` and `errorBannerWidth`.
+ * @param actionButtonType style of the primary button.
+ * @param buttonSize size of both buttons. Bento DS `size`.
+ * @param isLoading shows the loader and disables both buttons.
+ * @param loaderText text next to the loader. Bento DS `loadingMessage`.
+ * @param cancelButtonText label of the secondary button. Bento DS `secondaryAction.label`.
+ * @param onCancelClick called when the secondary button is clicked. Bento DS `secondaryAction.onPress`.
+ * @param actionButtonText label of the primary button. Bento DS `primaryAction.label`.
+ * @param onActionClick called when the primary button is clicked. Bento DS `primaryAction.onPress`.
+ */
 @Composable
 fun Action(
     banner: ActionBannerInfo? = null,
@@ -56,6 +84,7 @@ fun Action(
             }
             BentoDSButton(
                 text = cancelButtonText,
+                buttonSize = buttonSize,
                 enabled = !isLoading,
                 buttonType = ButtonType.SECONDARY_TRANSPARENT,
                 onClick = onCancelClick,
@@ -74,7 +103,7 @@ fun Action(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ActionPreview() {
+private fun ActionPreview() {
     BentoDSTheme {
         Column {
             Action(

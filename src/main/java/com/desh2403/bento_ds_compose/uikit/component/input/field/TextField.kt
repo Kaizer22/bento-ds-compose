@@ -3,6 +3,7 @@ package com.desh2403.bento_ds_compose.uikit.component.input.field
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,18 +23,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.R
-import com.desh2403.bento_ds_compose.uikit.component.FSpace
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
-import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 import com.desh2403.bento_ds_compose.uikit.theme.InputFieldStatePalette
 
-// TODO анимации переходов между состояниями
+/**
+ * State of an input field. Bento DS `disabled`, `isReadOnly` and `issues`:
+ * the `_ERROR` states show the assistive text as an error.
+ */
 enum class FieldState {
     ENABLED, ENABLED_ERROR,
     DISABLED,
@@ -50,27 +53,26 @@ private val DISABLE_INPUT_STATE = arrayOf(
     FieldState.READ_ONLY
 )
 
+/**
+ * Icon inside an input field.
+ *
+ * @param iconRes drawable of the icon.
+ * @param onClick called when the icon is clicked; `null` makes the icon decorative.
+ * @param contentDescription accessibility label of a clickable icon.
+ */
 data class InputFieldIcon(
     @DrawableRes val iconRes: Int,
-    @DrawableRes val iconSecondStateRes: Int? = null,
     val onClick: (() -> Unit)? = null,
+    val contentDescription: String? = null,
 )
 
 private const val DEFAULT_MAX_LINES_COUNT = 1
 
-//private fun mapTypeToInputType(inputFieldType: InputFieldType) = when (inputFieldType) {
-//    InputFieldType.TEXT -> KeyboardType.Text
-//    InputFieldType.TEXT_AREA -> KeyboardType.Text
-//    InputFieldType.PASSWORD -> KeyboardType.Password
-//    InputFieldType.NUMBER -> KeyboardType.Number
-//    InputFieldType.NUMBER_DECIMAL -> KeyboardType.Decimal
-//    InputFieldType.TIME, InputFieldType.DATE,
-//    InputFieldType.SINGLE_SELECTION, InputFieldType.MULTI_SELECTION,
-//    -> KeyboardType.Decimal
-//}
+private val INPUT_BORDER = 1.dp
+private val INPUT_FOCUSED_BORDER = 2.dp
 
 @Composable
-private fun getInputPaletteByState(state: FieldState) = when (state) {
+internal fun getInputPaletteByState(state: FieldState) = when (state) {
     FieldState.ENABLED -> BentoDSTheme.inputStatesColors.enabledStatePalette
     FieldState.ENABLED_ERROR -> BentoDSTheme.inputStatesColors.enabledErrorPalette
     FieldState.DISABLED -> BentoDSTheme.inputStatesColors.disabledPalette
@@ -78,6 +80,36 @@ private fun getInputPaletteByState(state: FieldState) = when (state) {
     FieldState.READ_ONLY_ERROR -> BentoDSTheme.inputStatesColors.readOnlyErrorPalette
 }
 
+/**
+ * Text field with a label, an info hint, a placeholder, icons, a unit and an assistive or error text.
+ * With [maxLinesCount] above 1 it works as a text area that grows from [minLinesCount] lines.
+ *
+ * Bento DS: [TextField](https://developer.bento-ds.com/Components/TextField),
+ * [TextArea](https://developer.bento-ds.com/Components/TextArea)
+ *
+ * Extensions over Bento DS: [leadingIcon], [displayUnit] and [visualTransformation].
+ * Bento DS `type` maps to [keyboardType] and, for passwords, to [visualTransformation].
+ *
+ * @param modifier modifier of the whole field, including the label and the assistive text.
+ * @param inputFieldContentModifier modifier of the input box only.
+ * @param value current text. Bento DS `value`.
+ * @param onValueChange called with the new text. Bento DS `onChange`.
+ * @param label label above the field. Bento DS `label`.
+ * @param placeholder text shown while the field is empty. Bento DS `placeholder`.
+ * @param assistiveText text under the field; an error message in the `_ERROR` states.
+ * Bento DS `assistiveText` and `issues`.
+ * @param infoMessage hint shown in a tooltip from the info button next to the label. Bento DS `hint`.
+ * @param displayUnit unit after the text, e.g. `%`.
+ * @param keyboardType keyboard of the field. Bento DS `type`.
+ * @param visualTransformation transformation of the shown text, e.g. password masking.
+ * @param maxLinesCount maximum number of visible lines. Bento DS TextArea `rows`.
+ * @param minLinesCount minimum number of visible lines, at most [maxLinesCount].
+ * @param state enabled, disabled, read-only and error states. Bento DS `disabled`, `isReadOnly` and `issues`.
+ * @param readOnlyInputField makes the text read-only while keeping the enabled look, e.g. for a field
+ * that opens a picker.
+ * @param leadingIcon icon before the text.
+ * @param trailingIcon icon after the text. Bento DS `rightAccessory`.
+ */
 @Composable
 fun BentoDSTextField(
     modifier: Modifier = Modifier,
@@ -92,6 +124,7 @@ fun BentoDSTextField(
     keyboardType: KeyboardType = KeyboardType.Text,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     maxLinesCount: Int = DEFAULT_MAX_LINES_COUNT,
+    minLinesCount: Int = 1,
     state: FieldState = FieldState.ENABLED,
     readOnlyInputField: Boolean = false,
     leadingIcon: InputFieldIcon? = null,
@@ -99,9 +132,8 @@ fun BentoDSTextField(
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
-    val isError = remember(state) { ERROR_STATES.contains(state) }
-    val isEnable = remember(state) { !DISABLE_INPUT_STATE.contains(state) }
-    val showInfoButton = remember(infoMessage) { infoMessage != null }
+    val isError = state in ERROR_STATES
+    val isEnable = state !in DISABLE_INPUT_STATE
 
     val inputPalette = getInputPaletteByState(state = state)
 
@@ -111,9 +143,7 @@ fun BentoDSTextField(
         },
         value = value,
         enabled = isEnable,
-        onValueChange = { newValue ->
-            onValueChange.invoke(newValue)
-        },
+        onValueChange = onValueChange,
         textStyle = BentoDSTheme.typography.bodyLarge.copy(
             color = inputPalette.inputTextColor,
         ),
@@ -123,16 +153,16 @@ fun BentoDSTextField(
         visualTransformation = visualTransformation,
         readOnly = readOnlyInputField,
         maxLines = maxLinesCount,
-        minLines = maxLinesCount,
+        minLines = minLinesCount.coerceIn(1, maxLinesCount),
         cursorBrush = SolidColor(BentoDSTheme.colors.text.primary),
         decorationBox = { innerTextField ->
             Column {
                 InputHeader(
                     label = label,
-                    showInfoButton = showInfoButton,
+                    showInfoButton = infoMessage != null,
                     infoIconTint = inputPalette.infoIconTint,
+                    infoMessage = infoMessage,
                 )
-                VSpace(h = BentoDSTheme.dims.x1)
                 InputDecorationBox(
                     modifier = inputFieldContentModifier,
                     state = state,
@@ -145,7 +175,7 @@ fun BentoDSTextField(
                             inputPalette = inputPalette,
                             isLeading = true,
                         )
-                        Box {
+                        Box(modifier = Modifier.weight(1f)) {
                             if (value.isEmpty() && placeholder != null) {
                                 Text(
                                     text = placeholder,
@@ -155,9 +185,6 @@ fun BentoDSTextField(
                             }
 
                             innerTextField.invoke()
-                        }
-                        if (displayUnit != null || trailingIcon != null) {
-                            FSpace()
                         }
                         TextFieldDisplayUnit(
                             displayUnit = displayUnit,
@@ -181,6 +208,7 @@ fun BentoDSTextField(
     )
 }
 
+/** Unit text shown after the value of an input field. */
 @Composable
 fun TextFieldDisplayUnit(
     displayUnit: String?,
@@ -196,6 +224,7 @@ fun TextFieldDisplayUnit(
     }
 }
 
+/** Leading or trailing [InputFieldIcon] of an input field. */
 @Composable
 fun TextFieldIcon(
     icon: InputFieldIcon?,
@@ -203,21 +232,23 @@ fun TextFieldIcon(
     isLeading: Boolean,
 ) {
     icon?.let {
-        // TODO interactive state icon button
         if (!isLeading) HSpace(w = BentoDSTheme.dims.x4)
         Icon(
-            modifier = Modifier.size(
-                BentoDSTheme.dims.x6,
-            ),
+            modifier = Modifier
+                .size(BentoDSTheme.dims.x6)
+                .then(
+                    if (it.onClick != null) Modifier.clickable(role = Role.Button, onClick = it.onClick)
+                    else Modifier
+                ),
             tint = inputPalette.customIconsTint,
             painter = painterResource(id = it.iconRes),
-            contentDescription = null,
+            contentDescription = if (it.onClick != null) it.contentDescription else null,
         )
         if (isLeading) HSpace(w = BentoDSTheme.dims.x4)
     }
 }
 
-
+/** Background and border of an input field box, reflecting its [state] and focus. */
 @Composable
 fun InputDecorationBox(
     modifier: Modifier = Modifier,
@@ -226,18 +257,18 @@ fun InputDecorationBox(
     inputPalette: InputFieldStatePalette,
     content: @Composable () -> Unit,
 ) {
+    val isActive = state == FieldState.ENABLED && isFocused
     Box(
         modifier = modifier
             .background(
                 color = inputPalette.fieldBackgroundColor,
-                shape = BentoDSTheme.shapes.buttonShape
+                shape = BentoDSTheme.shapes.inputShape
             )
             .border(
-                width = 1.dp,
-                color = if (state == FieldState.ENABLED && isFocused)
-                    BentoDSTheme.colors.outline.inputFocus
+                width = if (isActive) INPUT_FOCUSED_BORDER else INPUT_BORDER,
+                color = if (isActive) BentoDSTheme.colors.outline.inputFocus
                 else inputPalette.borderColor,
-                shape = BentoDSTheme.shapes.buttonShape
+                shape = BentoDSTheme.shapes.inputShape
             )
             .padding(
                 horizontal = BentoDSTheme.dims.x4,
@@ -251,7 +282,7 @@ fun InputDecorationBox(
 
 @Composable
 @Preview(showSystemUi = true)
-fun InputFieldPreview() {
+private fun InputFieldPreview() {
     BentoDSTheme {
         Column {
             FieldState.entries.forEach { state ->

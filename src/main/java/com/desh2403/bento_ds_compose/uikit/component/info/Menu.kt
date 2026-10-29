@@ -12,11 +12,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/** Width of a [Menu] in dp. */
 const val MENU_WIDTH_DP = 190
+
+/**
+ * Static list of text items on a card, with an optional header.
+ *
+ * Bento DS: [Menu](https://developer.bento-ds.com/Components/Menu)
+ *
+ * Differences from Bento DS: the menu is always visible and has no trigger, placement, nested menus,
+ * icons or dividers; open it in a popup or a dropdown yourself.
+ *
+ * @param modifier modifier of the menu.
+ * @param header text above the items. Bento DS `header`.
+ * @param items labels of the items. Bento DS `items`.
+ * @param onItemClick called with the label of the clicked item; `null` makes the items non-interactive.
+ */
 @Composable
 fun Menu(
     modifier: Modifier = Modifier,
@@ -25,7 +41,9 @@ fun Menu(
     onItemClick: ((String) -> Unit)? = null,
 ) {
     BentoDSCard(
-        modifier = modifier.width(MENU_WIDTH_DP.dp),
+        modifier = modifier
+            .padding(BentoDSTheme.dims.x3)
+            .width(MENU_WIDTH_DP.dp),
         paddingValues = PaddingValues(BentoDSTheme.dims.x0)
     ) {
         Column {
@@ -41,7 +59,7 @@ fun Menu(
                     items.forEach { item ->
                         MenuItem(
                             text = item,
-                            onClick = { onItemClick?.invoke(item) }
+                            onClick = onItemClick?.let { { it(item) } },
                         )
                     }
                 }
@@ -52,10 +70,11 @@ fun Menu(
     }
 }
 
+/** Header of a [Menu]. */
 @Composable
 fun MenuHeader(
     text: String,
-    ) {
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,14 +90,14 @@ fun MenuHeader(
     }
 }
 
-// TODO ListItem
+/** Item of a [Menu]; `null` [onClick] makes it non-interactive. */
 @Composable
 fun MenuItem(
     text: String,
     onClick: (() -> Unit)?,
 ) {
     val clickableModifier = if (onClick != null) {
-        Modifier.clickable(onClick = onClick)
+        Modifier.clickable(role = Role.Button, onClick = onClick)
     } else {
         Modifier
     }
@@ -86,8 +105,7 @@ fun MenuItem(
         modifier = clickableModifier
             .fillMaxWidth()
             .padding(BentoDSTheme.dims.x3),
-
-        ) {
+    ) {
         Text(
             text = text,
             style = BentoDSTheme.typography.bodyMedium,
@@ -98,7 +116,7 @@ fun MenuItem(
 
 @Composable
 @Preview
-fun MenuPreview() {
+private fun MenuPreview() {
     BentoDSTheme {
         Menu(
             header = "Header",

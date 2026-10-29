@@ -15,6 +15,15 @@ import com.desh2403.bento_ds_compose.uikit.component.info.BentoDSIcon
 import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/**
+ * Path of links to the parent pages followed by the current page; scrolls horizontally when long.
+ *
+ * Bento DS: [Breadcrumb](https://developer.bento-ds.com/Components/Breadcrumb)
+ *
+ * @param modifier modifier of the breadcrumb.
+ * @param path titles from the root to the current page; the last one is not a link. Bento DS `items`.
+ * @param onClick called with the clicked title.
+ */
 @Composable
 fun Breadcrumb(
     modifier: Modifier = Modifier,
@@ -51,7 +60,7 @@ fun Breadcrumb(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun BreadcrumbPreview() {
+private fun BreadcrumbPreview() {
     BentoDSTheme {
         Breadcrumb(
             path = listOf(

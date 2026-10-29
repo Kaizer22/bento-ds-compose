@@ -3,6 +3,7 @@ package com.desh2403.bento_ds_compose.uikit.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
+/** Colors of one button kind in every state; `hover` is used while the button is pressed. */
 data class PAButtonPalette(
     val enabledBg: Color,
     val enabledFg: Color,
@@ -14,6 +15,7 @@ data class PAButtonPalette(
     val disabledFg: Color,
 )
 
+/** Button colors for every [com.desh2403.bento_ds_compose.uikit.component.button.ButtonType]. */
 data class BentoDSButtonColors(
     val primarySolidButton: PAButtonPalette,
     val primaryOutlinedButton: PAButtonPalette,
@@ -36,6 +38,7 @@ data class BentoDSButtonColors(
     val warningTransparentButton: PAButtonPalette,
 )
 
+/** Default button colors derived from the current [BentoDSTheme.colors]. */
 @Composable
 fun paButtonColors() =
     BentoDSButtonColors(

@@ -4,6 +4,12 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * Spacing scale on a 4 dp grid: `xN` equals `N * 4.dp` (`x0_25` = 1 dp, `x0_5` = 2 dp),
+ * plus the elevation levels of Bento DS surfaces.
+ *
+ * Bento DS: [Layout](https://developer.bento-ds.com/Guides/layout)
+ */
 data class BentoDSDimensions(
     val x0 : Dp = 0.dp,
     val x0_25: Dp = 1.dp,

@@ -8,7 +8,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -27,7 +26,19 @@ import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 import kotlinx.coroutines.delay
 
-// TODO AreaLoader
+/**
+ * Area that shows its [content] and, while [isLoading], covers it with a scrim and a card with
+ * an animated loader and an optional message.
+ *
+ * Bento DS: [AreaLoader](https://developer.bento-ds.com/Components/AreaLoader)
+ *
+ * Differences from Bento DS: the loader wraps the [content] instead of being placed over it by the caller.
+ *
+ * @param modifier modifier of the area.
+ * @param isLoading shows the loader over the content.
+ * @param text message under the loader. Bento DS `message`.
+ * @param content content of the area.
+ */
 @Composable
 fun BentoDSAreaLoader(
     modifier: Modifier = Modifier,
@@ -35,11 +46,12 @@ fun BentoDSAreaLoader(
     text: String? = null,
     content: @Composable () -> Unit,
 ) {
-    Box {
+    Box(modifier = modifier) {
+        content.invoke()
         if (isLoading) {
             Box(
-                modifier = modifier
-                    .fillMaxSize()
+                modifier = Modifier
+                    .matchParentSize()
                     .background(color = BentoDSTheme.colors.bg.scrim),
                 contentAlignment = Alignment.Center,
             ) {
@@ -66,8 +78,6 @@ fun BentoDSAreaLoader(
                 }
 
             }
-        } else {
-            content.invoke()
         }
     }
 }
@@ -81,7 +91,7 @@ private const val CIRCLE_ANIMATION_AREA_HEIGHT_DP = 60
 private const val SPACE_BETWEEN_CIRCLES_DP = 8
 
 @Composable
-fun LoaderBox() {
+private fun LoaderBox() {
     Box(
         modifier = Modifier.padding(
             BentoDSTheme.dims.x10,
@@ -95,7 +105,9 @@ fun LoaderBox() {
                 delay(CIRCLE_ANIMATION_DELAY_MILLIS * index)
                 animate(
                     initialValue = 0f,
-                    targetValue = localDensity.run { 60.dp.toPx() },
+                    targetValue = localDensity.run {
+                        (CIRCLE_ANIMATION_AREA_HEIGHT_DP - CIRCLE_RADIUS_MAX_DP * 2).dp.toPx()
+                    },
                     animationSpec = infiniteRepeatable(
                         animation = tween(
                             durationMillis = CIRCLE_ANIMATION_DURATION_MILLIS,
@@ -152,7 +164,7 @@ fun LoaderBox() {
                 radius = circleSizes[0],
                 center = Offset(
                     x = CIRCLE_RADIUS_MAX_DP.dp.toPx(),
-                    y = circleYAnimations[0],
+                    y = CIRCLE_RADIUS_MAX_DP.dp.toPx() + circleYAnimations[0],
                 )
             )
             drawCircle(
@@ -160,7 +172,7 @@ fun LoaderBox() {
                 radius = circleSizes[1],
                 center = Offset(
                     x = secondCirclePositionX.dp.toPx(),
-                    y = circleYAnimations[1],
+                    y = CIRCLE_RADIUS_MAX_DP.dp.toPx() + circleYAnimations[1],
                 )
             )
             drawCircle(
@@ -168,7 +180,7 @@ fun LoaderBox() {
                 radius = circleSizes[2],
                 center = Offset(
                     x = thirdCirclePositionX.dp.toPx(),
-                    y = circleYAnimations[2],
+                    y = CIRCLE_RADIUS_MAX_DP.dp.toPx() + circleYAnimations[2],
                 )
             )
         }

@@ -2,7 +2,6 @@ package com.desh2403.bento_ds_compose.uikit.component.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +25,19 @@ private enum class StepState {
     TODO, IN_PROGRESS, DONE,
 }
 
-// TODO animation
+/**
+ * Horizontal list of numbered steps; finished steps show [doneIcon] and the current step is highlighted.
+ * The list scrolls to the current step.
+ *
+ * Bento DS: [Stepper](https://developer.bento-ds.com/Components/Stepper)
+ *
+ * Extensions over Bento DS: [doneIcon].
+ *
+ * @param modifier modifier of the stepper.
+ * @param steps labels of the steps. Bento DS `steps`.
+ * @param currentStep 0-based index of the current step. Bento DS `currentStep`.
+ * @param doneIcon icon of a finished step.
+ */
 @Composable
 fun Stepper(
     modifier: Modifier = Modifier,
@@ -36,8 +46,8 @@ fun Stepper(
     @DrawableRes doneIcon: Int = R.drawable.ic_positive_solid,
 ) {
     val scrollState = rememberLazyListState()
-    LaunchedEffect(currentStep) {
-        scrollState.scrollToItem(currentStep)
+    LaunchedEffect(currentStep, steps.size) {
+        if (currentStep in steps.indices) scrollState.scrollToItem(currentStep)
     }
     LazyRow(
         modifier = modifier,
@@ -152,7 +162,7 @@ private fun StepIcon(
 
 @Preview(showBackground = true)
 @Composable
-fun StepperPreview() {
+private fun StepperPreview() {
     BentoDSTheme {
         Stepper(
             steps = listOf(

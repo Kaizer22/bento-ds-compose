@@ -9,23 +9,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-// TODO to lib
+/** Flexible space that takes all remaining width of the [androidx.compose.foundation.layout.Row]. */
 @Composable
 fun RowScope.FSpace() = Spacer(modifier = Modifier.weight(1f))
 
+/** Flexible space that takes all remaining height of the [androidx.compose.foundation.layout.Column]. */
 @Composable
 fun ColumnScope.FSpace() = Spacer(modifier = Modifier.weight(1f))
 
+/** Vertical gap of height [h]. */
 @Composable
 fun VSpace(
     h: Dp
-) = Space(w = 0.dp, h = h,)
+) = Space(w = 0.dp, h = h)
 
+/** Horizontal gap of width [w]. */
 @Composable
 fun HSpace(
     w: Dp
 ) = Space(w = w, h = 0.dp)
 
+/** Empty box of width [w] and height [h]. */
 @Composable
 fun Space(
     modifier: Modifier = Modifier,

@@ -8,6 +8,13 @@ import androidx.compose.ui.Modifier
 import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/**
+ * Padded column with an optional title, for the content of a Material `ModalBottomSheet`.
+ * Prefer [BentoDSBottomSheet], which includes the sheet itself.
+ *
+ * @param title title above the content.
+ * @param content content of the sheet.
+ */
 @Composable
 fun ModalBottomSheetContainer(
     title: String? = null,
@@ -21,9 +28,8 @@ fun ModalBottomSheetContainer(
                 end = BentoDSTheme.dims.x6,
                 bottom = BentoDSTheme.dims.x6,
             )
-            //.sizeIn(minHeight = BentoDSTheme.dimensions.x60)
     ) {
-        title?.let{
+        title?.let {
             Text(
                 text = it,
                 style = BentoDSTheme.typography.titleLarge,

@@ -1,15 +1,16 @@
 package com.desh2403.bento_ds_compose.uikit.component.navigation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,24 +21,39 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
+import com.desh2403.bento_ds_compose.uikit.component.navigation.BentoDSTabType.FOLDER
+import com.desh2403.bento_ds_compose.uikit.component.navigation.BentoDSTabType.UNDERLINE
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
-// TODO Folder Tabs + Underlined Tabs + Navigation
-
+/** Look of [BentoDSTabs]: [FOLDER] tabs with a filled selected tab, or [UNDERLINE] tabs. */
 enum class BentoDSTabType {
     FOLDER, UNDERLINE
 }
 
+/** Size of [BentoDSTabs]. */
 enum class BentoDSTabSize {
     MEDIUM, LARGE
 }
 
+/**
+ * Tab of [BentoDSTabs].
+ *
+ * @param title label of the tab.
+ * @param iconRes icon before the label.
+ * @param enabled whether the tab can be selected.
+ * @param notificationMarker shows a dot after the label.
+ */
 data class BentoDSTab(
     val title: String,
     val iconRes: Int? = null,
@@ -45,6 +61,21 @@ data class BentoDSTab(
     val notificationMarker: Boolean = false,
 )
 
+/**
+ * Row of tabs above the content of the selected tab. The row scrolls horizontally when the tabs do not fit.
+ *
+ * Bento DS: [Tabs](https://developer.bento-ds.com/Components/Tabs)
+ *
+ * Extensions over Bento DS: the folder and underline looks, icons, disabled tabs and notification markers.
+ *
+ * @param modifier modifier of the tabs.
+ * @param selectedDSTab selected tab.
+ * @param size size of the tabs.
+ * @param type look of the tabs.
+ * @param tabs all tabs.
+ * @param onSelectTab called with the clicked tab.
+ * @param content content of the selected tab.
+ */
 @Composable
 fun BentoDSTabs(
     modifier: Modifier = Modifier,
@@ -77,10 +108,27 @@ private fun TabsRow(
     tabs: List<BentoDSTab>,
     onSelectTab: (BentoDSTab) -> Unit
 ) {
+    val outlineColor = BentoDSTheme.colors.outline.decorative
+    val outlineWidth = BentoDSTheme.dims.x0_25
     Row(
-        modifier = Modifier.horizontalScroll(
-            rememberScrollState()
-        )
+        modifier = Modifier
+            .then(
+                if (type == BentoDSTabType.UNDERLINE) Modifier
+                    .fillMaxWidth()
+                    .drawBehind {
+                        val y = this.size.height - outlineWidth.toPx() / 2
+                        drawLine(
+                            color = outlineColor,
+                            start = Offset(0f, y),
+                            end = Offset(this.size.width, y),
+                            strokeWidth = outlineWidth.toPx(),
+                        )
+                    }
+                else Modifier
+            )
+            .horizontalScroll(
+                rememberScrollState()
+            )
     ) {
         tabs.forEach { tab ->
             when (type) {
@@ -109,11 +157,7 @@ private fun FolderTabItem(
     selected: Boolean,
     onClick: () -> Unit,
 ) {
-    val selectedBgColor = BentoDSTheme.colors.bg.interactiveOverlay
-    val bgColor = remember(selected) {
-        if (selected) selectedBgColor
-        else Color.Transparent
-    }
+    val bgColor = if (selected) BentoDSTheme.colors.bg.interactiveOverlay else Color.Transparent
     val textStyle = when (size) {
         BentoDSTabSize.MEDIUM -> BentoDSTheme.typography.labelMedium
         BentoDSTabSize.LARGE -> BentoDSTheme.typography.labelLarge
@@ -123,23 +167,19 @@ private fun FolderTabItem(
         else BentoDSTheme.colors.fg.primary
     } else BentoDSTheme.colors.fg.disabled
 
-    val height = when (size) {
-        BentoDSTabSize.MEDIUM -> BentoDSTheme.dims.x12
-        BentoDSTabSize.LARGE -> BentoDSTheme.dims.x14
-    }
     val verticalPadding = when (size) {
         BentoDSTabSize.MEDIUM -> BentoDSTheme.dims.x3
         BentoDSTabSize.LARGE -> BentoDSTheme.dims.x4
     }
-    // TODO контент общий для folder и underline
     Row(
         modifier = Modifier
-            //.height(height)
             .clip(BentoDSTheme.shapes.folderTabShape)
-            .clickable(
-                onClick = {
-                    if (tab.enabled) onClick.invoke()
-                })
+            .selectable(
+                selected = selected,
+                enabled = tab.enabled,
+                role = Role.Tab,
+                onClick = onClick,
+            )
             .background(
                 color = bgColor,
             )
@@ -189,7 +229,62 @@ private fun UnderlineTabItem(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-
+    val textStyle = when (size) {
+        BentoDSTabSize.MEDIUM -> BentoDSTheme.typography.labelMedium
+        BentoDSTabSize.LARGE -> BentoDSTheme.typography.labelLarge.copy(lineHeight = 20.sp)
+    }
+    val elementsColor = when {
+        !tab.enabled -> BentoDSTheme.colors.fg.disabled
+        selected -> BentoDSTheme.colors.text.primary
+        else -> BentoDSTheme.colors.text.secondary
+    }
+    val indicatorColor = BentoDSTheme.colors.outline.inputFocus
+    val indicatorHeight = BentoDSTheme.dims.x0_5
+    Row(
+        modifier = Modifier
+            .selectable(
+                selected = selected,
+                enabled = tab.enabled,
+                role = Role.Tab,
+                onClick = onClick,
+            )
+            .drawBehind {
+                if (selected) drawRect(
+                    color = indicatorColor,
+                    topLeft = Offset(0f, this.size.height - indicatorHeight.toPx()),
+                    size = Size(this.size.width, indicatorHeight.toPx()),
+                )
+            }
+            .padding(BentoDSTheme.dims.x3),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        tab.iconRes?.let {
+            Icon(
+                modifier = Modifier.size(BentoDSTheme.dims.x5),
+                painter = painterResource(it),
+                contentDescription = null,
+                tint = elementsColor,
+            )
+            HSpace(BentoDSTheme.dims.x2)
+        }
+        Text(
+            text = tab.title,
+            style = textStyle,
+            color = elementsColor,
+        )
+        if (tab.notificationMarker) {
+            HSpace(BentoDSTheme.dims.x2)
+            Box(
+                modifier = Modifier
+                    .size(BentoDSTheme.dims.x2)
+                    .background(
+                        color = if (tab.enabled) BentoDSTheme.colors.fg.interactive
+                        else BentoDSTheme.colors.fg.disabled,
+                        shape = BentoDSTheme.shapes.roundShape,
+                    ),
+            )
+        }
+    }
 }
 
 
@@ -218,6 +313,25 @@ private fun TabsPreview() {
     BentoDSTheme {
         BentoDSTabs(
             selectedDSTab = selectedTab,
+            tabs = tabsList,
+            onSelectTab = { tab -> selectedTab = tab },
+            content = {}
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun UnderlineTabsPreview() {
+    val tabsList = remember {
+        listOf(BentoDSTab(title = "Active (5)"), BentoDSTab(title = "Archive (2)"))
+    }
+    var selectedTab by remember { mutableStateOf(tabsList[0]) }
+    BentoDSTheme {
+        BentoDSTabs(
+            selectedDSTab = selectedTab,
+            size = BentoDSTabSize.LARGE,
+            type = BentoDSTabType.UNDERLINE,
             tabs = tabsList,
             onSelectTab = { tab -> selectedTab = tab },
             content = {}

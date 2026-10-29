@@ -17,8 +17,13 @@ private val LexendFontFamily = FontFamily(
     Font(R.font.lexend_bold, FontWeight.W700),
     Font(R.font.lexend_extra_bold, FontWeight.W800),
 )
+/**
+ * Text styles of Bento DS set in Lexend: display, headline, title, body, strong, link and label,
+ * each in large, medium and small sizes.
+ *
+ * Bento DS: [Typography](https://developer.bento-ds.com/Guides/typography)
+ */
 data class BentoDSTypography(
-    // region Display
     val displayLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 64.sp,
@@ -37,9 +42,7 @@ data class BentoDSTypography(
         lineHeight = 50.sp,
         fontWeight = FontWeight.W600,
     ),
-    // endregion
 
-    // region Headline
     val headlineLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 40.sp,
@@ -58,9 +61,7 @@ data class BentoDSTypography(
         lineHeight = 36.sp,
         fontWeight = FontWeight.W600,
     ),
-    // endregion
 
-    // region Title
     val titleLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 22.sp,
@@ -79,9 +80,7 @@ data class BentoDSTypography(
         lineHeight = 16.sp,
         fontWeight = FontWeight.W600,
     ),
-    // endregion
 
-    // region Body
     val bodyLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 16.sp,
@@ -118,9 +117,7 @@ data class BentoDSTypography(
         lineHeight = 18.sp,
         fontWeight = FontWeight.W600,
     ),
-    // endregion
 
-    // region Strong
     val strongLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 16.sp,
@@ -139,9 +136,7 @@ data class BentoDSTypography(
         lineHeight = 18.sp,
         fontWeight = FontWeight.W600,
     ),
-    // endregion
 
-    // region Link
     val linkLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 16.sp,
@@ -160,9 +155,7 @@ data class BentoDSTypography(
         lineHeight = 18.sp,
         fontWeight = FontWeight.W400,
     ),
-    // endregion
 
-    // region Label
     val labelLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 16.sp,
@@ -181,9 +174,7 @@ data class BentoDSTypography(
         lineHeight = 18.sp,
         fontWeight = FontWeight.W500,
     ),
-    // endregion
 
-    // region Label Link
     val labelLinkLarge: TextStyle = TextStyle(
         fontFamily = LexendFontFamily,
         fontSize = 16.sp,
@@ -202,7 +193,6 @@ data class BentoDSTypography(
         lineHeight = 18.sp,
         fontWeight = FontWeight.W500,
     ),
-    // endregion
 )
 
 internal val LocalBentoDSTypography = staticCompositionLocalOf { BentoDSTypography() }

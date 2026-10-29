@@ -2,6 +2,7 @@ package com.desh2403.bento_ds_compose.uikit.component.info
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.desh2403.bento_ds_compose.uikit.R
-import com.desh2403.bento_ds_compose.uikit.component.FSpace
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSButton
@@ -22,11 +22,36 @@ import com.desh2403.bento_ds_compose.uikit.component.button.BentoDSIconButton
 import com.desh2403.bento_ds_compose.uikit.component.button.ButtonType
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
-// TODO Animate showing, closing
+/** Status of a [BentoDSBanner]: Bento DS `kind`. */
 enum class BentoDSBannerType {
     INFORMATIVE, POSITIVE, WARNING, NEGATIVE, SECONDARY
 }
 
+/**
+ * Inline message with a status icon, an optional title, a description, actions and a dismiss button.
+ *
+ * Bento DS: [Banner](https://developer.bento-ds.com/Components/Banner)
+ *
+ * Extensions over Bento DS:
+ * - a second action ([secondaryAction]), optionally destructive;
+ * - a custom icon ([bannerIcon]);
+ * - [isFillMaxWidth].
+ *
+ * @param modifier modifier of the banner.
+ * @param bannerType status of the banner. Bento DS `kind`.
+ * @param title title of the banner. Bento DS `title`.
+ * @param description text of the banner. Bento DS `description`.
+ * @param bannerIcon icon instead of the default status icon.
+ * @param isFillMaxWidth whether the text column takes all available width.
+ * @param action label of the action. Bento DS `action.label`.
+ * @param onActionClick called when the action is clicked; the action is shown only together with [action].
+ * Bento DS `action.onPress`.
+ * @param secondaryAction label of a second action next to [action].
+ * @param onSecondaryActionClick called when the second action is clicked.
+ * @param isSecondaryActionDestructive shows the second action in the negative color.
+ * @param onCloseClick called when the dismiss button is clicked; `null` hides the button. Bento DS `onDismiss`.
+ * @param closeButtonLabel accessibility label of the dismiss button. Bento DS `dismissButtonLabel`.
+ */
 @Composable
 fun BentoDSBanner(
     modifier: Modifier = Modifier,
@@ -37,7 +62,11 @@ fun BentoDSBanner(
     isFillMaxWidth: Boolean = false,
     action: String? = null,
     onActionClick: (() -> Unit)? = null,
+    secondaryAction: String? = null,
+    onSecondaryActionClick: (() -> Unit)? = null,
+    isSecondaryActionDestructive: Boolean = false,
     onCloseClick: (() -> Unit)? = null,
+    closeButtonLabel: String? = null,
 ) {
     val leftIcon = bannerIcon ?: when (bannerType) {
         BentoDSBannerType.INFORMATIVE -> R.drawable.ic_info_solid
@@ -89,7 +118,7 @@ fun BentoDSBanner(
                 contentDescription = null,
             )
             HSpace(w = BentoDSTheme.dims.x4)
-            Column {
+            Column(modifier = Modifier.weight(1f, fill = isFillMaxWidth)) {
                 title?.let {
                     Text(
                         text = title,
@@ -108,9 +137,6 @@ fun BentoDSBanner(
                 }
             }
             HSpace(w = BentoDSTheme.dims.x4)
-            if (isFillMaxWidth) {
-                FSpace()
-            }
             onCloseClick?.let {
                 BentoDSIconButton(
                     size = IconSize.L,
@@ -118,23 +144,38 @@ fun BentoDSBanner(
                     iconRes = R.drawable.ic_x,
                     onClick = onCloseClick,
                     needPadding = false,
+                    contentDescription = closeButtonLabel,
                 )
             }
         }
-        if (action != null && onActionClick != null) {
+        val hasAction = action != null && onActionClick != null
+        val hasSecondaryAction = secondaryAction != null && onSecondaryActionClick != null
+        if (hasAction || hasSecondaryAction) {
             VSpace(h = BentoDSTheme.dims.x2)
-            BentoDSButton(
-                text = action,
-                buttonType = ButtonType.SECONDARY_TRANSPARENT,
-                onClick = onActionClick,
-            )
+            Row(horizontalArrangement = Arrangement.spacedBy(BentoDSTheme.dims.x1)) {
+                if (hasAction) {
+                    BentoDSButton(
+                        text = action,
+                        buttonType = ButtonType.SECONDARY_TRANSPARENT,
+                        onClick = onActionClick!!,
+                    )
+                }
+                if (hasSecondaryAction) {
+                    BentoDSButton(
+                        text = secondaryAction,
+                        buttonType = if (isSecondaryActionDestructive) ButtonType.NEGATIVE_TRANSPARENT
+                        else ButtonType.SECONDARY_TRANSPARENT,
+                        onClick = onSecondaryActionClick!!,
+                    )
+                }
+            }
         }
     }
 }
 
 @Preview
 @Composable
-fun BannerPreview() {
+private fun BannerPreview() {
     BentoDSTheme {
         Column {
             BentoDSBanner(
@@ -190,8 +231,6 @@ fun BannerPreview() {
                 bannerType = BentoDSBannerType.NEGATIVE,
                 description = "Description",
                 onCloseClick = {},
-                //action = "Action",
-                //onActionClick = {},
                 isFillMaxWidth = true
             )
             VSpace(h = 4.dp)
@@ -199,18 +238,13 @@ fun BannerPreview() {
                 bannerType = BentoDSBannerType.NEGATIVE,
                 description = "Description",
                 onCloseClick = {},
-                //action = "Action",
-                //onActionClick = {},
                 isFillMaxWidth = false
             )
             VSpace(h = 4.dp)
             BentoDSBanner(
                 title = "Title",
                 bannerType = BentoDSBannerType.NEGATIVE,
-                //description = "Description",
                 onCloseClick = {},
-                //action = "Action",
-                //onActionClick = {},
                 isFillMaxWidth = false
             )
         }

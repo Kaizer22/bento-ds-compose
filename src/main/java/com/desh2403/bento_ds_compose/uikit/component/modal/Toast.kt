@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,15 +20,35 @@ import com.desh2403.bento_ds_compose.uikit.component.info.BentoDSCard
 import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/** Status of a [Toast]: Bento DS `kind`. */
 enum class BentoDSToastType {
     INFORMATIVE, POSITIVE, WARNING, NEGATIVE, SECONDARY
 }
 
+/**
+ * Action of a [Toast].
+ *
+ * @param name label of the action.
+ * @param onClick called when the action is clicked.
+ */
 data class Action(
     val name: String,
     val onClick: () -> Unit,
 )
 
+/**
+ * Short status message with an optional action and a close button. The surface keeps an outer margin
+ * so it does not touch the screen edges. Showing, queueing and hiding toasts are up to the caller.
+ *
+ * Bento DS: [Toast](https://developer.bento-ds.com/Components/Toast)
+ *
+ * @param modifier modifier of the toast.
+ * @param type status of the toast. Bento DS `kind`.
+ * @param message text of the toast. Bento DS `message`.
+ * @param action action button. Bento DS `action`.
+ * @param onClose called when the close button is clicked. Bento DS `onDismiss`.
+ * @param closeButtonLabel accessibility label of the close button.
+ */
 @Composable
 fun Toast(
     modifier: Modifier = Modifier,
@@ -35,6 +56,7 @@ fun Toast(
     message: String,
     action: Action? = null,
     onClose: () -> Unit,
+    closeButtonLabel: String? = null,
 ) {
     val messageColor = when (type) {
         BentoDSToastType.INFORMATIVE -> BentoDSTheme.colors.text.informative
@@ -51,6 +73,7 @@ fun Toast(
         BentoDSToastType.SECONDARY -> BentoDSTheme.colors.bg.secondary
     }
     BentoDSCard(
+        modifier = modifier.padding(BentoDSTheme.dims.x3),
         color = backgroundColor,
         paddingValues = PaddingValues(
             horizontal = BentoDSTheme.dims.x6,
@@ -58,7 +81,6 @@ fun Toast(
         ),
     ) {
         Row(
-            modifier = modifier,
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
@@ -84,6 +106,7 @@ fun Toast(
                     needPadding = false,
                     iconRes = R.drawable.ic_x,
                     size = IconSize.L,
+                    contentDescription = closeButtonLabel,
                     onClick = onClose,
                 )
             }
@@ -93,7 +116,7 @@ fun Toast(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ToastPreview() {
+private fun ToastPreview() {
     BentoDSTheme {
         Column {
             Toast(

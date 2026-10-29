@@ -12,6 +12,22 @@ import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.info.IconSize
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/**
+ * Button that shows only an icon.
+ *
+ * Bento DS has no separate page for it: it is a [Button](https://developer.bento-ds.com/Components/Button)
+ * without a label. The whole component is an extension of this library.
+ *
+ * @param modifier modifier of the button.
+ * @param iconRes icon of the button.
+ * @param onClick called when the button is clicked.
+ * @param buttonType hierarchy and kind of the button.
+ * @param size size of the icon; the button size and padding follow it.
+ * @param needPadding `false` removes the padding around the icon.
+ * @param enabled whether the button reacts to clicks.
+ * @param iconTint tint of the icon in the enabled state; the [buttonType] color by default.
+ * @param contentDescription accessibility label of the button. Set it unless the action is described elsewhere.
+ */
 @Composable
 fun BentoDSIconButton(
     modifier: Modifier = Modifier,
@@ -22,6 +38,7 @@ fun BentoDSIconButton(
     needPadding: Boolean = true,
     enabled: Boolean = true,
     iconTint: Color? = null,
+    contentDescription: String? = null,
 ) {
     val buttonSize = when (size) {
         IconSize.XS -> ButtonSize.S
@@ -45,13 +62,13 @@ fun BentoDSIconButton(
         paddingValues = PaddingValues(paddings),
         iconsTint = iconTint,
         enabled = enabled,
+        contentDescription = contentDescription,
     )
 }
 
-
 @Preview(showBackground = true)
 @Composable
-fun IconButtonPrimarySolidPreview() {
+private fun IconButtonPrimarySolidPreview() {
     BentoDSTheme {
         Row(verticalAlignment = Alignment.Bottom) {
             BentoDSIconButton(
@@ -79,7 +96,7 @@ fun IconButtonPrimarySolidPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun IconButtonPrimaryOutlinedPreview() {
+private fun IconButtonPrimaryOutlinedPreview() {
     BentoDSTheme {
         Row {
             BentoDSIconButton(
@@ -111,7 +128,7 @@ fun IconButtonPrimaryOutlinedPreview() {
 
 @Preview(showBackground = true)
 @Composable
-fun IconButtonPrimaryTransparentPreview() {
+private fun IconButtonPrimaryTransparentPreview() {
     BentoDSTheme {
         Row {
             BentoDSIconButton(

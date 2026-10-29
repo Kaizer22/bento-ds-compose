@@ -21,8 +21,16 @@ import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
-private const val label = "inline_loader_rotation_angle"
+private const val ANIMATION_LABEL = "inline_loader_rotation_angle"
 
+/**
+ * Small spinning loader with an optional message, for loading inside a line of content.
+ *
+ * Bento DS: [InlineLoader](https://developer.bento-ds.com/Components/InlineLoader)
+ *
+ * @param modifier modifier of the loader.
+ * @param text message next to the spinner. Bento DS `message`.
+ */
 @Composable
 fun BentoDSInlineLoader(
     modifier: Modifier = Modifier,
@@ -32,7 +40,7 @@ fun BentoDSInlineLoader(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        val transition = rememberInfiniteTransition(label = label)
+        val transition = rememberInfiniteTransition(label = ANIMATION_LABEL)
         val rotationAngle by transition.animateFloat(
             initialValue = 0f,
             targetValue = 360f,
@@ -41,7 +49,7 @@ fun BentoDSInlineLoader(
                     durationMillis = 1000,
                 ),
                 repeatMode = RepeatMode.Restart,
-            ), label = label,
+            ), label = ANIMATION_LABEL,
         )
         Image(
             painter = painterResource(id = R.drawable.ic_spinner),
@@ -64,7 +72,7 @@ fun BentoDSInlineLoader(
 
 @Preview
 @Composable
-fun InlineLoaderPreview() {
+private fun InlineLoaderPreview() {
     BentoDSTheme {
         BentoDSInlineLoader(
             text = "Loading..."

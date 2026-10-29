@@ -9,21 +9,18 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
+/** Interaction source that never emits interactions, so no ripple or pressed state is shown. */
 class NoRippleInteractionSource : MutableInteractionSource {
     override val interactions: Flow<Interaction> = emptyFlow()
     override suspend fun emit(interaction: Interaction) {}
     override fun tryEmit(interaction: Interaction) = true
 }
 
-fun Modifier.noRippleClick(onClick: () -> Unit): Modifier {
-    return this.clickable(
-        interactionSource = NoRippleInteractionSource(),
-        indication = null
-    ) {
-        onClick()
-    }
-}
+/** Makes the element clickable without a ripple. */
+fun Modifier.noRippleClick(onClick: () -> Unit): Modifier =
+    clickable(interactionSource = null, indication = null, onClick = onClick)
 
+/** Remembers a [NoRippleInteractionSource]. */
 @Composable
 fun rememberNoRippleInteractionSource() =
     remember { NoRippleInteractionSource() }

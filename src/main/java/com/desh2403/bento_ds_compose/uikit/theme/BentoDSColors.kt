@@ -1,10 +1,6 @@
 package com.desh2403.bento_ds_compose.uikit.theme
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-
-// Based on Free UI-Kit "Bento DS"
-// https://uigarage.net/ui-kit/bento-ds-2-7/
 
 val bento_violet_1 = Color(0xFFEBF1FF)
 val bento_violet_5 = Color(0xFFD0DCFF)
@@ -114,83 +110,48 @@ val yellow_70 = Color(0xFF9A7400)
 val yellow_80 = Color(0xFF6B5000)
 val yellow_90 = Color(0xFF362900)
 
-val green_1 = Color(0xFF)
-val green_5 = Color(0xFF)
-val green_10 = Color(0xFF)
-val green_20 = Color(0xFF)
-val green_30 = Color(0xFF)
-val green_40 = Color(0xFF)
-val green_50 = Color(0xFF)
-val green_60 = Color(0xFF)
-val green_70 = Color(0xFF)
-val green_80 = Color(0xFF)
-val green_90 = Color(0xFF)
+val green_10 = Color(0xFFDBF1BC)
+val green_30 = Color(0xFFA3D65C)
 
-val jade_1 = Color(0xFF)
-val jade_5 = Color(0xFF)
-val jade_10 = Color(0xFF)
-val jade_20 = Color(0xFF)
-val jade_30 = Color(0xFF)
-val jade_40 = Color(0xFF)
-val jade_50 = Color(0xFF)
-val jade_60 = Color(0xFF)
-val jade_70 = Color(0xFF)
-val jade_80 = Color(0xFF)
-val jade_90 = Color(0xFF)
+val jade_10 = Color(0xFFB7F6D7)
+val jade_30 = Color(0xFF51E098)
 
-val blue_1 = Color(0xFF)
-val blue_5 = Color(0xFF)
-val blue_10 = Color(0xFF)
-val blue_20 = Color(0xFF)
-val blue_30 = Color(0xFF)
-val blue_40 = Color(0xFF)
-val blue_50 = Color(0xFF)
-val blue_60 = Color(0xFF)
-val blue_70 = Color(0xFF)
-val blue_80 = Color(0xFF)
-val blue_90 = Color(0xFF)
+val blue_10 = Color(0xFFBCF2FF)
+val blue_30 = Color(0xFF51D0FB)
 
-val indigo_1 = Color(0xFF)
-val indigo_5 = Color(0xFF)
-val indigo_10 = Color(0xFF)
-val indigo_20 = Color(0xFF)
-val indigo_30 = Color(0xFF)
-val indigo_40 = Color(0xFF)
-val indigo_50 = Color(0xFF)
-val indigo_60 = Color(0xFF)
-val indigo_70 = Color(0xFF)
-val indigo_80 = Color(0xFF)
-val indigo_90 = Color(0xFF)
+val indigo_10 = Color(0xFFC0D3F9)
+val indigo_30 = Color(0xFF5F8CE6)
 
-val violet_1 = Color(0xFF)
-val violet_5 = Color(0xFF)
-val violet_10 = Color(0xFF)
-val violet_20 = Color(0xFF)
-val violet_30 = Color(0xFF)
-val violet_40 = Color(0xFF)
-val violet_50 = Color(0xFF)
-val violet_60 = Color(0xFF)
-val violet_70 = Color(0xFF)
-val violet_80 = Color(0xFF)
-val violet_90 = Color(0xFF)
+val violet_10 = Color(0xFFDABEEA)
+val violet_30 = Color(0xFFA463C7)
 
-val pink_1 = Color(0xFF)
-val pink_5 = Color(0xFF)
-val pink_10 = Color(0xFF)
-val pink_20 = Color(0xFF)
-val pink_30 = Color(0xFF)
-val pink_40 = Color(0xFF)
-val pink_50 = Color(0xFF)
-val pink_60 = Color(0xFF)
-val pink_70 = Color(0xFF)
-val pink_80 = Color(0xFF)
-val pink_90 = Color(0xFF)
+val pink_10 = Color(0xFFF8B0DA)
+val pink_30 = Color(0xFFE648A4)
 
 val transparent = Color.Transparent
 val white = Color.White
 val black = Color.Black
 
-// TODO allow colors customization
+/**
+ * Semantic color roles of Bento DS. Components read colors only through these roles,
+ * so a custom palette restyles the whole library. Default palettes: [paLightColors], [paDarkColors].
+ *
+ * Bento DS: [Theming](https://developer.bento-ds.com/Customization/theming)
+ *
+ * @param brand brand colors.
+ * @param bg backgrounds of screens, surfaces and status containers.
+ * @param fg icons and other non-text foreground elements.
+ * @param text text colors.
+ * @param link [com.desh2403.bento_ds_compose.uikit.component.button.Link] colors.
+ * @param primary colors of primary interactive elements.
+ * @param secondary colors of secondary interactive elements.
+ * @param warning colors of warning interactive elements. Not part of Bento DS.
+ * @param danger colors of destructive interactive elements.
+ * @param positive colors of positive interactive elements. Not part of Bento DS.
+ * @param disabled colors of disabled interactive elements.
+ * @param outline borders and dividers.
+ * @param visualisation data visualization colors.
+ */
 data class BentoDSPalette(
     val brand: BrandPalette,
     val bg: BgPalette,
@@ -207,45 +168,60 @@ data class BentoDSPalette(
     val visualisation: VisualisationPalette,
 )
 
+/** Brand colors, from the main to the lightest one. */
 data class BrandPalette(
-    // region Brand
     val primary: Color,
     val secondary: Color = bento_violet_20,
     val tertiary: Color = bento_violet_10,
-    // endregion
 )
 
+/**
+ * Background roles.
+ *
+ * @param elevated surfaces above the background: cards, sheets, input fields.
+ * @param sunken recessed areas: progress tracks, secondary buttons.
+ * @param scrim overlay behind modal sheets.
+ */
 data class BgPalette(
-    // region Background
     val primary: Color,
     val secondary: Color,
+    val elevated: Color = white,
+    val sunken: Color = neutral_5,
     val overlay: Color = neutral_20.copy(alpha = 0.4f),
     val interactive: Color = bento_violet_40,
     val interactiveOverlay: Color = bento_violet_10.copy(alpha = 0.4f),
-    val informative: Color,// = informative_5,
-    val positive: Color,// = positive_5,
-    val warning: Color,// = warning_5,
-    val negative: Color,// = negative_5,
+    val informative: Color,
+    val positive: Color,
+    val warning: Color,
+    val negative: Color,
     val scrim: Color,
-    // endregion
 )
 
+/**
+ * Foreground roles for icons and other non-text elements.
+ *
+ * @param onInteractive icons and text placed on [BgPalette.interactive].
+ */
 data class FgPalette(
-    // region Foreground
     val primary: Color,
     val secondary: Color,
-    // TODO inverse fg colors
     val interactive: Color = bento_violet_40,
+    val onInteractive: Color = white,
     val informative: Color = informative_40,
     val positive: Color = positive_40,
     val warning: Color = warning_40,
     val negative: Color = negative_40,
     val disabled: Color = neutral_40.copy(alpha = 0.3f),
-    // endregion
 )
 
+/**
+ * Text roles.
+ *
+ * @param primaryInverse text on an inverse background.
+ * @param primaryStaticLight light text that does not change between light and dark modes.
+ * @param primaryStaticDark dark text that does not change between light and dark modes.
+ */
 data class TextPalette(
-    // region Text
     val primary: Color,
     val primaryInverse: Color,
     val primaryStaticLight: Color = neutral_1,
@@ -257,20 +233,18 @@ data class TextPalette(
     val warning: Color = warning_50,
     val negative: Color = negative_50,
     val disabled: Color = neutral_40.copy(alpha = 0.3f),
-    // endregion
 )
 
+/** Colors of a link in each state. */
 data class LinkPalette(
-    // region Interactive Link
     val enabled: Color,
     val hover: Color,
     val focus: Color,
     val disabled: Color,
-    // endregion
 )
 
+/** Borders of containers and input fields, and dividers. */
 data class OutlinePalette(
-    // region Outline
     val interactive: Color = bento_violet_40,
     val decorative: Color = neutral_20,
     val container: Color = neutral_5,
@@ -282,11 +256,10 @@ data class OutlinePalette(
     val positive: Color = positive_50,
     val warning: Color = warning_40,
     val negative: Color = negative_30,
-    // endregion
 )
 
+/** Colors of disabled interactive elements. */
 data class DisabledPalette(
-    // region Interactive Disabled
     val solidBg: Color = neutral_20.copy(alpha = 0.2f),
     val solidFg: Color = neutral_40.copy(alpha = 0.3f),
 
@@ -294,11 +267,10 @@ data class DisabledPalette(
     val transparentFg: Color = neutral_40.copy(alpha = 0.3f),
 
     val outline: Color = neutral_40.copy(alpha = 0.3f),
-    // endregion
 )
 
+/** Soft and bright data visualization colors of Bento DS. */
 data class VisualisationPalette(
-    // region Data Visualization
     val softIndigo: Color = indigo_10,
     val brightIndigo: Color = indigo_30,
     val softViolet: Color = violet_10,
@@ -319,9 +291,9 @@ data class VisualisationPalette(
     val brightBlue: Color = blue_30,
     val softGrey: Color = neutral_10,
     val brightGrey: Color = neutral_30,
-    // endregion
 )
 
+/** Colors of one interactive hierarchy (primary, secondary, danger, ...) in every kind and state. */
 data class InteractivePalette(
     val solidEnabledBg: Color,
     val solidEnabledFg: Color,
@@ -403,7 +375,7 @@ private val warningInteractivePalette = InteractivePalette(
     outlineFocus = warning_60,
 )
 
-@Composable
+/** Default light palette. */
 fun paLightColors() = BentoDSPalette(
     brand = BrandPalette(
         primary = bento_violet_40,
@@ -457,12 +429,12 @@ fun paLightColors() = BentoDSPalette(
         solidFocusBg = neutral_20,
         solidFocusFg = neutral_90,
         transparentEnabledBg = transparent,
-        transparentEnabledFg = neutral_80,// neutral_80 / neutral_5,
+        transparentEnabledFg = neutral_80,
         transparentHoverBg = neutral_20.copy(alpha = 0.4f),
         transparentHoverFg = black,
         transparentFocusBg = neutral_20.copy(alpha = 0.4f),
         transparentFocusFg = black,
-        outlineEnabled = neutral_80, // neutral_80 / neutral_5,
+        outlineEnabled = neutral_80,
         outlineHover = black,
         outlineFocus = black,
     ),
@@ -474,7 +446,7 @@ fun paLightColors() = BentoDSPalette(
     visualisation = VisualisationPalette()
 )
 
-@Composable
+/** Default dark palette. */
 fun paDarkColors() = BentoDSPalette(
     brand = BrandPalette(
         primary = bento_violet_90,
@@ -482,6 +454,8 @@ fun paDarkColors() = BentoDSPalette(
     bg  = BgPalette(
         primary = neutral_90,
         secondary = neutral_80,
+        elevated = neutral_80,
+        sunken = neutral_90,
         scrim = neutral_90.copy(alpha = 0.6f),
         informative = informative_90,
         positive = positive_80,
@@ -505,12 +479,12 @@ fun paDarkColors() = BentoDSPalette(
         solidFocusBg = neutral_60,
         solidFocusFg = neutral_5,
         transparentEnabledBg = transparent,
-        transparentEnabledFg = neutral_5,// neutral_80 / neutral_5,
+        transparentEnabledFg = neutral_5,
         transparentHoverBg = neutral_60.copy(alpha = 0.4f),
         transparentHoverFg = white,
         transparentFocusBg = neutral_60.copy(alpha = 0.4f),
         transparentFocusFg = white,
-        outlineEnabled = neutral_5, // neutral_80 / neutral_5,
+        outlineEnabled = neutral_5,
         outlineHover = white,
         outlineFocus = white,
     ),

@@ -3,6 +3,7 @@ package com.desh2403.bento_ds_compose.uikit.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
+/** Colors of an input field in one [com.desh2403.bento_ds_compose.uikit.component.input.field.FieldState]. */
 data class InputFieldStatePalette(
     val borderColor : Color,
     val labelColor : Color,
@@ -15,17 +16,18 @@ data class InputFieldStatePalette(
     val inputTextColor : Color,
 )
 
+/** Input field colors for every [com.desh2403.bento_ds_compose.uikit.component.input.field.FieldState]. */
 data class InputFieldPalette(
     val enabledStatePalette: InputFieldStatePalette,
     val enabledErrorPalette: InputFieldStatePalette,
 
     val disabledPalette: InputFieldStatePalette,
-    //val disabledErrorPalette: InputFieldStatePalette,
 
     val readOnlyPalette: InputFieldStatePalette,
     val readOnlyErrorPalette: InputFieldStatePalette,
 )
 
+/** Default input field colors derived from the current [BentoDSTheme.colors]. */
 @Composable
 fun paInputStatePalettes() : InputFieldPalette {
     val enabledStatePalette = InputFieldStatePalette(
@@ -34,7 +36,7 @@ fun paInputStatePalettes() : InputFieldPalette {
         assistTextColor = BentoDSTheme.colors.text.secondary,
         placeholderColor  = BentoDSTheme.colors.text.secondary,
         customIconsTint = BentoDSTheme.colors.fg.primary,
-        fieldBackgroundColor = BentoDSTheme.colors.bg.primary,
+        fieldBackgroundColor = BentoDSTheme.colors.bg.elevated,
         inputTextColor = BentoDSTheme.colors.text.primary,
         infoIconTint = BentoDSTheme.colors.fg.secondary,
         errorIconTint = BentoDSTheme.colors.fg.negative,
@@ -68,8 +70,9 @@ fun paInputStatePalettes() : InputFieldPalette {
         ),
         disabledPalette = disabledPalette,
         readOnlyPalette = readOnlyPalette,
-        // TODO
-        readOnlyErrorPalette = readOnlyPalette,
+        readOnlyErrorPalette = readOnlyPalette.copy(
+            borderColor = BentoDSTheme.colors.outline.negative,
+        ),
     )
 }
 

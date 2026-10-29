@@ -13,6 +13,14 @@ import com.desh2403.bento_ds_compose.uikit.component.HSpace
 import com.desh2403.bento_ds_compose.uikit.component.VSpace
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
+/**
+ * Text under an input field; with [isError] it gets an error icon and the negative color.
+ * Bento DS `assistiveText` and `issues` of the form fields.
+ *
+ * @param assistiveText the text.
+ * @param errorIconTint tint of the error icon.
+ * @param isError shows the text as an error.
+ */
 @Composable
 fun InputAssistiveText(
     assistiveText: String?,
@@ -20,9 +28,8 @@ fun InputAssistiveText(
     isError: Boolean,
 ) {
     if (isError || assistiveText != null) {
-        VSpace(h = BentoDSTheme.dims.x1)
+        VSpace(h = BentoDSTheme.dims.x1 + BentoDSTheme.dims.x0_5)
         Row {
-            HSpace(w = BentoDSTheme.dims.x4)
             if (isError) {
                 Icon(
                     modifier = Modifier.size(

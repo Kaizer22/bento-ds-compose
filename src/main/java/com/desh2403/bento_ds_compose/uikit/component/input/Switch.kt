@@ -8,7 +8,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
 
-// TODO Switch
+/**
+ * On/off switch in Bento DS colors.
+ *
+ * Bento DS: [Switch](https://developer.bento-ds.com/Components/Switch)
+ *
+ * Differences from Bento DS: no built-in label; put the switch into a row or a
+ * [com.desh2403.bento_ds_compose.uikit.component.info.BentoDSListItem].
+ *
+ * @param modifier modifier of the switch.
+ * @param checked whether the switch is on. Bento DS `value`.
+ * @param enabled whether the switch reacts to clicks. Bento DS `disabled`, inverted.
+ * @param onCheckedChange called with the new state. Bento DS `onChange`.
+ */
 @Composable
 fun BentoDSSwitch(
     modifier: Modifier = Modifier,
@@ -25,26 +37,22 @@ fun BentoDSSwitch(
             checkedThumbColor = BentoDSTheme.colors.primary.solidEnabledFg,
             checkedTrackColor = BentoDSTheme.colors.primary.solidEnabledBg,
             checkedBorderColor = BentoDSTheme.colors.primary.solidEnabledBg,
-            //checkedIconColor =,
             uncheckedThumbColor = BentoDSTheme.colors.fg.interactive,
             uncheckedTrackColor = BentoDSTheme.colors.bg.primary,
             uncheckedBorderColor = BentoDSTheme.colors.outline.inputEnabled,
-            //uncheckedIconColor =,
             disabledCheckedThumbColor = BentoDSTheme.colors.disabled.solidFg,
             disabledCheckedTrackColor = BentoDSTheme.colors.disabled.solidBg,
             disabledCheckedBorderColor = BentoDSTheme.colors.disabled.solidBg,
-            //disabledCheckedIconColor =,
-            disabledUncheckedThumbColor =BentoDSTheme.colors.fg.disabled,
+            disabledUncheckedThumbColor = BentoDSTheme.colors.fg.disabled,
             disabledUncheckedTrackColor = BentoDSTheme.colors.bg.primary,
             disabledUncheckedBorderColor = BentoDSTheme.colors.fg.disabled,
-            //disabledUncheckedIconColor =,
         )
     )
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SwitchPreview() {
+private fun SwitchPreview() {
     BentoDSTheme {
         Column {
             BentoDSSwitch(checked = true) {}
