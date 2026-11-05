@@ -133,6 +133,7 @@ fun BentoDSBanner(
                     Text(
                         text = description,
                         style = BentoDSTheme.typography.bodyMedium,
+                        color = BentoDSTheme.colors.text.primary,
                     )
                 }
             }

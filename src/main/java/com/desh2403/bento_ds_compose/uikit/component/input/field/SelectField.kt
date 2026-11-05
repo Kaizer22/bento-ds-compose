@@ -68,6 +68,7 @@ fun BentoDSSelectField(
                         Text(
                             text = variant,
                             style = BentoDSTheme.typography.bodyMedium,
+                            color = BentoDSTheme.colors.text.primary,
                         )
                     },
                     onClick = {

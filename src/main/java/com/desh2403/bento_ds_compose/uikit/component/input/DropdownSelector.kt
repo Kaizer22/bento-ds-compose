@@ -52,7 +52,13 @@ fun DropdownSelector(
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             items.forEachIndexed { index, item ->
                 DropdownMenuItem(
-                    text = { Text(text = item, style = BentoDSTheme.typography.bodyMedium) },
+                    text = {
+                        Text(
+                            text = item,
+                            style = BentoDSTheme.typography.bodyMedium,
+                            color = BentoDSTheme.colors.text.primary,
+                        )
+                    },
                     onClick = {
                         expanded = false
                         onItemSelected(index)

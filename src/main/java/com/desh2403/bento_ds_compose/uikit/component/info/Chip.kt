@@ -3,6 +3,7 @@ package com.desh2403.bento_ds_compose.uikit.component.info
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.desh2403.bento_ds_compose.uikit.R
 import com.desh2403.bento_ds_compose.uikit.component.HSpace
@@ -27,13 +30,15 @@ import com.desh2403.bento_ds_compose.uikit.theme.BentoDSTheme
  *
  * Differences from Bento DS:
  * - colors follow the selection state instead of the Bento DS `color` palette;
- * - [selected], [onClick] and a custom trailing button are extensions;
+ * - [selected], [onClick], [onLongClick] and a custom trailing button are extensions;
  * - there is no `maxCharacters` or `uppercase`: the label is limited to one line.
  *
  * @param label text of the chip. Bento DS `label`.
  * @param modifier modifier of the chip.
  * @param selected highlights the chip with the brand tint.
  * @param onClick called when the chip is clicked; `null` makes the chip non-interactive.
+ * @param onLongClick called on a long press, e.g. to open actions of the chip; works only with [onClick].
+ * @param onLongClickLabel accessibility label of the long press action.
  * @param leadingIcon icon before the label. Bento DS `icon`.
  * @param trailingButtonIcon icon of a button after the label, e.g. a cross to dismiss the chip.
  * @param onTrailingButtonClick called when the trailing button is clicked. Bento DS `onDismiss`.
@@ -45,6 +50,8 @@ fun Chip(
     modifier: Modifier = Modifier,
     selected: Boolean = false,
     onClick: (() -> Unit)? = null,
+    onLongClick: (() -> Unit)? = null,
+    onLongClickLabel: String? = null,
     @DrawableRes leadingIcon: Int? = null,
     @DrawableRes trailingButtonIcon: Int? = null,
     onTrailingButtonClick: (() -> Unit)? = null,
@@ -69,11 +76,23 @@ fun Chip(
                 shape = shape,
             )
             .then(
-                if (onClick != null) Modifier.selectable(
-                    selected = selected,
-                    role = Role.Tab,
-                    onClick = onClick,
-                ) else Modifier
+                when {
+                    onClick == null -> Modifier
+                    onLongClick != null -> Modifier
+                        .semantics { this.selected = selected }
+                        .combinedClickable(
+                            role = Role.Tab,
+                            onLongClickLabel = onLongClickLabel,
+                            onLongClick = onLongClick,
+                            onClick = onClick,
+                        )
+
+                    else -> Modifier.selectable(
+                        selected = selected,
+                        role = Role.Tab,
+                        onClick = onClick,
+                    )
+                }
             )
             .padding(horizontal = BentoDSTheme.dims.x3),
         verticalAlignment = Alignment.CenterVertically,

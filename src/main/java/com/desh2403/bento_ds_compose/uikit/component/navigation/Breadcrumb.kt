@@ -52,6 +52,7 @@ fun Breadcrumb(
                 Text(
                     text = item,
                     style = BentoDSTheme.typography.bodyMedium,
+                    color = BentoDSTheme.colors.text.primary,
                 )
             }
         }
